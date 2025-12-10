@@ -7,6 +7,7 @@ The application includes Quick_Hunt utilities; do not use this code to perform u
   - Wordlist / URL Variant Generator
   - OSINT Github Dorks generator
 ---
+Make sure to use the right `<path to your wordlist>` before running the ffuf tool
 
 https://github.com/user-attachments/assets/fc1e4895-886c-464c-849d-f13646b56069
 
