@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OSINT-Tools</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #9aa4b2;
+        --accent: #60a5fa;
+        --green: #238636;
+        --border: rgba(255, 255, 255, 0.06);
+      }
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+          Helvetica, Arial;
+        margin: 0;
+        background: linear-gradient(180deg, #071024 0%, #081226 100%);
+        color: #e6eef8;
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 36px auto;
+        padding: 24px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+      .tabs {
+        display: flex;
+        margin-top: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        overflow-x: auto;
+      }
+      .tab-btn {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        font-weight: 600;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .tab-btn.active {
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        margin-top: 16px;
+        border: 1px solid var(--border);
+      }
+
+      /* Inputs */
+      textarea,
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: #0d141f;
+        color: inherit;
+        resize: vertical;
+        font-family: monospace;
+        box-sizing: border-box;
+      }
+      textarea:focus,
+      input:focus {
+        outline: 1px solid var(--accent);
+      }
+      input[type="file"] {
+        color: var(--muted);
+      }
+
+      /* Layouts */
+      .row {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .out {
+        margin-top: 18px;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 6px 8px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+
+      /* Buttons */
+      button {
+        background: var(--accent);
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        color: #042033;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      button:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      button.secondary {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      button.secondary:hover {
+        border-color: var(--muted);
+      }
+
+      /* Footer & Misc */
+      footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      pre {
+        background: #080c14;
+        color: #e6eef8;
+        border-radius: 10px;
+        padding: 14px;
+        overflow-x: auto;
+        font-family: monospace;
+        border: 1px solid var(--border);
+      }
+      .hidden {
+        display: none;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 6px;
+        display: block;
+      }
+      .mini-btn {
+        padding: 6px 8px;
+        font-size: 13px;
+        border-radius: 6px;
+      }
+
+      /* Dork Generator Specific Styles */
+      a.result-link {
+        color: var(--accent);
+        word-break: break-all;
+        text-decoration: none;
+        display: block;
+        padding: 2px 0;
+        font-size: 14px;
+      }
+      a.result-link:hover {
+        text-decoration: underline;
+      }
+
+      .dork-entry {
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+      }
+      .dork-entry:last-child {
+        border-bottom: none;
+      }
+
+      /* Wordlist styles */
+      .wl-line {
+        padding: 6px 8px;
+        border-radius: 6px;
+        margin: 2px 0;
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .wl-line:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .wl-line.copied {
+        background: rgba(96, 165, 250, 0.12);
+        color: #bfe3ff;
+      }
+
+      @media (max-width: 640px) {
+        .row {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script id="default-dorks" type="text/plain">
+      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter_http}
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter_http}
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter_http}
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter_http}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env {filter}
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      org:{sld} /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      org:{sld} /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      org:{sld} /[$#^]?pass[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /{sld}(?:[a-zA-Z0-9_-]+\.)+service-now\.com/
+      /{sld}(?:[a-zA-Z0-9_-]+\.)+servicenow\.com/
+      /{sld}(?:[a-zA-Z0-9-]+\.){2,}service-now\.com/
+      /{sld}(?:[a-zA-Z0-9-]+\.){2,}servicenow\.com/
+      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?Token[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter} NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /odbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ {filter}
+      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?Token[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter} NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /odbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ {filter}
+      /gserviceaccount.com/ AND /BEGIN PRIVATE KEY/ NOT /@project.iam.gserviceaccount.com/ NOT /your-client-email-here/ NOT /your-service-account/ NOT /@yourproject/ NOT /@{YOUR-PROJECT-ID}/ NOT /@\[your-project\]/ NOT /@\<project/ {filter}
+    </script>
+
+    <div class="wrap">
+      <header>
+        <div
+          class="card"
+          style="padding: 12px; display: flex; align-items: center; gap: 12px"
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"
+              stroke="#9AD0FF"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 3v11"
+              stroke="#60A5FA"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8 7l4-4 4 4"
+              stroke="#60A5FA"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <div>
+            <h1></h1>
+            <div class="small" style="color: var(--muted); margin-bottom: 0">
+              Expander, JSON, Wordlists & OSINT
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="json">JSON Generator</button>
+        <button class="tab-btn" data-tab="wordlist">Wordlist Fuziing Generator</button>
+        <button class="tab-btn" data-tab="dorks">OSINT Github Dorks</button>
+      </div>
+
+      <!-- Removed Expander section -->
+
+      <section id="tab-json" class="tab-content">
+        <div class="card">
+          <label for="param-input" class="small"
+            >Enter parameter names (one per line):</label
+          >
+          <textarea
+            id="param-input"
+            placeholder="e.g. email&#10;username&#10;password"
+            style="height: 160px"
+          ></textarea>
+          <div class="row">
+            <div style="flex: 1; display: flex; gap: 8px; align-items: center">
+              <input id="param-file" type="file" accept=".txt" />
+              <button id="load-param" class="secondary">Load .txt</button>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center">
+              <button id="generate-json">Generate</button>
+              <button id="clear-json" class="secondary">Clear</button>
+            </div>
+          </div>
+          <div class="out" id="json-output-area" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div><strong>Result</strong></div>
+              <div style="display: flex; gap: 8px; align-items: center">
+                <button id="toggle-format" class="secondary">Pretty</button>
+                <button id="copy-json" class="secondary">Copy</button>
+                <a
+                  id="download-json"
+                  style="display: none"
+                  download="params.json"
+                  ><button>Download</button></a
+                >
+              </div>
+            </div>
+            <div style="margin-top: 12px">
+              <pre id="json-output"></pre>
+            </div>
+          </div>
+          <footer>
+            Tip: Switch between <strong>Pretty</strong> and
+            <strong>Compact</strong> JSON view.
+          </footer>
+        </div>
+      </section>
+
+      <section id="tab-wordlist" class="tab-content hidden">
+        <div class="card">
+          <label for="subdomain-input" class="small"
+            >Enter subdomains:</label
+          >
+          <textarea
+            id="subdomain-input"
+            placeholder="e.g.&#10;dev.example.com:8080/admin&#10;example.com/path/to/"
+            style="height: 180px"
+          ></textarea>
+          <div class="row">
+            <div style="flex: 1; display: flex; gap: 8px; align-items: center">
+              <input id="subdomain-file" type="file" multiple />
+              <button id="load-subdomain" class="secondary">Load .txt</button>
+              <div class="small" style="margin-bottom: 0">or paste above</div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center">
+              <button id="generate-wordlist">Generate</button>
+              <button id="clear-wordlist" class="secondary">Clear</button>
+            </div>
+          </div>
+          <div class="out" id="wordlist-output-area" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <strong>Result</strong>
+                <span id="wordlist-count" class="badge">0</span>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center">
+                <a
+                  id="download-wordlist"
+                  style="display: none"
+                  download="wordlist.txt"
+                  ><button>Download txt</button></a
+                >
+                <button id="copy-wordlist" class="secondary">Copy All</button>
+                <button
+                  id="copy-ffuf-loop"
+                  class="secondary mini-btn"
+                  title="Copy ffuf loop to clipboard"
+                >
+                  Copy ffuf loop
+                </button>
+                <button
+                  id="copy-dirsearch-loop"
+                  class="secondary mini-btn"
+                  title="Copy dirsearch loop to clipboard"
+                >
+                  Copy dirsearch loop
+                </button>
+              </div>
+            </div>
+            <div style="margin-top: 12px">
+              <pre
+                id="wordlist-output"
+                readonly
+                style="
+                  width: 100%;
+                  height: 300px;
+                  overflow: auto;
+                  padding: 12px;
+                  border-radius: 8px;
+                  background: #081226;
+                "
+              ></pre>
+            </div>
+            <div
+              id="wl-hint"
+              style="margin-top: 8px; color: var(--muted); font-size: 13px"
+            >
+              Double-click a line to copy the full <code>ffuf</code> command for
+              that host + endpoint. Use the buttons to copy full loop commands.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-dorks" class="tab-content hidden">
+        <div class="card">
+          <label class="small">Target URLs (one per line)</label>
+          <textarea
+            id="dork-urls"
+            placeholder="https://sub.example.com/page&#10;https://dev.target.co.uk"
+          ></textarea>
+
+          <label class="small" style="margin-top: 14px"
+            >Custom Dork (optional - leave empty for Defaults)</label
+          >
+          <textarea
+            id="dork-custom"
+            style="min-height: 90px"
+            placeholder="Use {domain}, {SLD}, {subdomain} — e.g., {domain} password"
+          ></textarea>
+
+          <label class="small" style="margin-top: 14px"
+            >Dorks Used — Live Preview (editable)</label
+          >
+          <textarea id="dork-preview" style="min-height: 150px"></textarea>
+
+          <div class="actions row">
+            <button id="dork-generate">Generate Links</button>
+            <button id="dork-copy" class="secondary">Copy All Links</button>
+            <button id="dork-addFilter" class="secondary">{filter}</button>
+            <button id="dork-addFilterHttp" class="secondary">
+              {filter_http}
+            </button>
+          </div>
+
+          <div class="out" id="dork-resultsArea">
+            <div style="color: var(--muted); margin-bottom: 8px">
+              Generated dorks appear here.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // ---------- Tabs ----------
+      const tabs = document.querySelectorAll(".tab-btn");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.add("hidden"));
+          document
+            .querySelector("#tab-" + tab.dataset.tab)
+            .classList.remove("hidden");
+        });
+      });
+
+      // ---------- JSON Generator ----------
+      const paramInput = document.getElementById("param-input"),
+        paramFile = document.getElementById("param-file"),
+        loadParam = document.getElementById("load-param"),
+        generateBtn = document.getElementById("generate-json"),
+        clearJson = document.getElementById("clear-json"),
+        jsonOutputArea = document.getElementById("json-output-area"),
+        jsonOutput = document.getElementById("json-output"),
+        toggleFormat = document.getElementById("toggle-format"),
+        copyJson = document.getElementById("copy-json"),
+        downloadJson = document.getElementById("download-json");
+
+      let pretty = true,
+        currentJSON = {};
+
+      function highlightJSON(t) {
+        return t.replace(
+          /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+          function (m) {
+            let c = "json-value";
+            if (/^"/.test(m)) {
+              c = /:$/.test(m) ? "json-key" : "json-string";
+            }
+            return '<span class="' + c + '">' + m + "</span>";
+          }
+        );
+      }
+
+      function renderJSON() {
+        const txt = pretty
+          ? JSON.stringify(currentJSON, null, 2)
+          : JSON.stringify(currentJSON);
+        jsonOutput.innerHTML = highlightJSON(txt);
+        jsonOutputArea.style.display = "block";
+        makeJSONDownload(txt);
+      }
+
+      function makeJSONDownload(t) {
+        const b = new Blob([t], { type: "application/json" });
+        const u = URL.createObjectURL(b);
+        downloadJson.href = u;
+        downloadJson.style.display = "inline-block";
+      }
+
+      generateBtn.addEventListener("click", () => {
+        const lines = paramInput.value
+          .split(/\r?\n/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+        if (!lines.length) {
+          alert("Enter or load parameter names first.");
+          return;
+        }
+        const r = {};
+        lines.forEach((n) => (r[n] = n + "!(@#$%^&*)(?><"));
+        currentJSON = r;
+        renderJSON();
+      });
+
+      loadParam.addEventListener("click", () => {
+        if (!paramFile.files[0]) return alert("Select a .txt file first");
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          paramInput.value = e.target.result.trim();
+          generateBtn.click(); // auto-generate after load
+        };
+        reader.readAsText(paramFile.files[0]);
+      });
+
+      toggleFormat.addEventListener("click", () => {
+        pretty = !pretty;
+        toggleFormat.textContent = pretty ? "Pretty" : "Compact";
+        if (Object.keys(currentJSON).length) renderJSON();
+      });
+
+      copyJson.addEventListener("click", () => {
+        const tmp = document.createElement("textarea");
+        tmp.value = JSON.stringify(currentJSON, null, pretty ? 2 : 0);
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand("copy");
+        document.body.removeChild(tmp);
+        copyJson.textContent = "Copied!";
+        setTimeout(() => (copyJson.textContent = "Copy"), 1200);
+      });
+
+      clearJson.addEventListener("click", () => {
+        paramInput.value = "";
+        jsonOutput.innerHTML = "";
+        jsonOutputArea.style.display = "none";
+        downloadJson.style.display = "none";
+      });
+
+      // ---------- Wordlist Generator ----------
+      const subInput = document.getElementById("subdomain-input"),
+        subFile = document.getElementById("subdomain-file"),
+        loadSub = document.getElementById("load-subdomain"),
+        genSub = document.getElementById("generate-wordlist"),
+        clearSub = document.getElementById("clear-wordlist"),
+        outArea = document.getElementById("wordlist-output-area"),
+        outPre = document.getElementById("wordlist-output"),
+        copySub = document.getElementById("copy-wordlist"),
+        downSub = document.getElementById("download-wordlist"),
+        countSub = document.getElementById("wordlist-count"),
+        ffufBtn = document.getElementById("copy-ffuf-loop"),
+        dirBtn = document.getElementById("copy-dirsearch-loop");
+
+      function makeDownloadLink(content, linkEl) {
+        const blob = new Blob([content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        linkEl.href = url;
+        linkEl.style.display = "inline-block";
+      }
+
+      // ---- Validation regexes ----
+      const SIZE_JUNK_RE = /\b\d+(\.\d+)?\s*[kKmMgG]?[bB]\b/; // matches 0.00KB, 1.1lkb etc.
+      const HOST_VALID_RE =
+        /^(?:localhost|\d{1,3}(?:\.\d{1,3}){3}|[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)$/;
+
+      // ---- sanitize a single raw line: remove ANSI junk, control chars, drop size lines, keep only before '[' ----
+      function sanitizeLineKeepUrl(line) {
+        if (!line) return "";
+        if (line.includes("\x1B[")) line = line.split("\x1B[")[0];
+        line = line.replace(/\x1B\[[0-?]*[ -/]*[@-~]/g, "");
+        line = line.replace(/[\x00-\x1F\x7F]/g, "");
+        line = line.trim();
+        if (!line) return "";
+        if (SIZE_JUNK_RE.test(line)) return "";
+        line = line.replace(/\/+$/g, "/");
+        if (line === "/" || line.length === 0) return "";
+        return line;
+      }
+
+      function extractUrlsFromText(text) {
+        if (!text) return [];
+        const re =
+          /(?:https?:\/\/)?((?:localhost|\d{1,3}(?:\.\d{1,3}){3}|[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+))(:\d+)?(\/[^\s"'<>\)\]]*)?/g;
+        const out = [];
+        const seen = new Set();
+
+        for (const m of text.matchAll(re)) {
+          let fullMatch = m[0] || "";
+          const host = m[1] || "";
+          const port = m[2] || "";
+          let path = m[3] || "/";
+          const scheme = /^https?:\/\//i.test(fullMatch)
+            ? fullMatch.match(/^https?:\/\//i)[0]
+            : "https://";
+          let candidate = `${scheme}${host}${port}${path}`;
+          candidate = sanitizeLineKeepUrl(candidate);
+          if (!candidate) continue;
+          if (!candidate.endsWith("/")) candidate = candidate + "/";
+          const hostPort = candidate.replace(/^https?:\/\//i, "").split("/")[0];
+          const hostOnly = hostPort.split(":")[0];
+          if (!HOST_VALID_RE.test(hostOnly)) continue;
+          if (!seen.has(candidate)) {
+            seen.add(candidate);
+            out.push(candidate);
+          }
+        }
+        return out;
+      }
+
+      function generateVariants(input) {
+        if (!input) return [];
+        let url = input.trim();
+        let scheme = "";
+        if (url.match(/^https?:\/\//i)) {
+          scheme = url.match(/^https?:\/\//i)[0];
+          url = url.replace(/^https?:\/\//i, "");
+        } else {
+          scheme = "https://";
+        }
+        let hostPort = url;
+        let path = "/";
+        if (url.includes("/")) {
+          const idx = url.indexOf("/");
+          hostPort = url.slice(0, idx);
+          path = url.slice(idx);
+          if (!path.endsWith("/")) path += "/";
+        }
+        let host = hostPort;
+        let port = "";
+        if (hostPort.includes(":")) {
+          const idx = hostPort.indexOf(":");
+          host = hostPort.slice(0, idx);
+          port = hostPort.slice(idx);
+        }
+        const parts = host.split(".").filter(Boolean);
+        const results = [];
+        results.push(`${scheme}${host}${port}${path}`);
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}${p}/`);
+        });
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}http.${p}/`);
+        });
+        return results;
+      }
+
+      const FfufTemplate =
+        'ffuf -u ${endpoint}FUZZ -H "Sec-Ch-Ua: \\"Chromium\\";v=\\"141\\", \\"Not?A_Brand\\";v=\\"8\\"" -H "X-Requested-With: XMLHttpRequest" -H "Sec-Ch-Ua-Platform: \\"Windows\\"" -H "Priority: u=1, i" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" -H "Sec-Fetch-Site: same-origin" -H "Sec-Fetch-Dest: empty" -H "Sec-Fetch-Mode: cors" -H "Cache-Control: max-age=0" -H "Accept-Language: en-US,en;q=0.9" -H "Sec-Ch-Ua-Mobile: ?0" -H "Content-Type: application/json; charset=utf-8" -c -r -t 200 -fs 0 -fw 0 -mc all -fc 400,500,501,502,503,429 -e .asmx,.aspx,.svc,.ashx,.xls,.xlsx,.csv,.txt,.dll,.xml,.xlt,.iso,.zip,.7z,.rar,.sql,.html,.htm,.json,.js,.asp,.dtd,.log,.env -w <path/to/wordlist.txt>';
+      const FFUF_LOOP = `IFS=$'\\n'; WORDLIST='<path/to/wordlist.txt>'; for URL in $(cat urls); do ffuf -u "\${URL}FUZZ" -H 'Sec-Ch-Ua: "Chromium";v="141", "Not?A_Brand";v="8"' -H 'X-Requested-With: XMLHttpRequest' -H 'Sec-Ch-Ua-Platform: "Windows"' -H 'Priority: u=1, i' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36' -H 'Sec-Fetch-Site: same-origin' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Cache-Control: max-age=0' -H 'Accept-Language: en-US,en;q=0.9' -H 'Sec-Ch-Ua-Mobile: ?0' -H 'Content-Type: application/json; charset=utf-8' -w "$WORDLIST" -c -r -t 200 -fs 0 -fw 0 -mc all -fc 400,403,500,501,502,503,429 -e .asmx,.aspx,.svc,.ashx,.xls,.xlsx,.csv,.txt,.dll,.xml,.xlt,.iso,.zip,.7z,.rar,.sql,.html,.htm,.json,.js,.asp,.dtd,.log,.env; done; unset IFS`;
+      const DIRSEARCH_LOOP = `IFS=$'\\n'; for URL in $(cat urls); do dirsearch -u "$URL" --full-url -r -x 429,400,500,501,502,503 -t 200 -e .asmx,.aspx,.svc,.ashx,.xls,.xlsx,.csv,.txt,.dll,.xml,.zip,.7z,.rar,.sql,.html,.htm,.json,.js,.asp,.dtd 2>/dev/null; done; unset IFS`;
+
+      genSub.addEventListener("click", () => {
+        const rawText = subInput.value || "";
+        let extracted = extractUrlsFromText(rawText);
+        if (!extracted.length) {
+          extracted = rawText
+            .split(/\r?\n/)
+            .map(sanitizeLineKeepUrl)
+            .filter(Boolean);
+        }
+        if (!extracted.length)
+          return alert("Enter or load valid subdomains/URLs first.");
+        const uniqueInputs = Array.from(new Set(extracted));
+        uniqueInputs.sort((a, b) =>
+          a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+        );
+        let display = [];
+        for (const line of uniqueInputs) {
+          const variants = generateVariants(line);
+          display.push(...variants);
+        }
+        display = Array.from(new Set(display));
+        outPre.innerHTML = "";
+        for (const line of display) {
+          const div = document.createElement("div");
+          div.className = "wl-line";
+          div.dataset.endpoint = line;
+          div.title = "Double-click to copy ffuf command for " + line;
+          div.textContent = line;
+          outPre.appendChild(div);
+        }
+        countSub.textContent = display.length;
+        outArea.style.display = "block";
+        makeDownloadLink(display.join("\n"), downSub);
+      });
+
+      outPre.addEventListener("dblclick", async (ev) => {
+        const el = ev.target.closest(".wl-line");
+        if (!el) return;
+        const endpoint = el.dataset.endpoint;
+        if (!endpoint) return;
+        const cmd = FfufTemplate.replace(/\$\{endpoint\}/g, endpoint);
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(cmd);
+          } else {
+            const tmp = document.createElement("textarea");
+            tmp.value = cmd;
+            document.body.appendChild(tmp);
+            tmp.select();
+            document.execCommand("copy");
+            document.body.removeChild(tmp);
+          }
+          el.classList.add("copied");
+          const prev = el.textContent;
+          el.textContent = "Copied → " + endpoint;
+          setTimeout(() => {
+            el.classList.remove("copied");
+            el.textContent = prev;
+          }, 1200);
+        } catch (e) {
+          alert("Copy failed: " + (e && e.message ? e.message : e));
+        }
+      });
+
+      loadSub.addEventListener("click", () => {
+        if (!subFile.files.length)
+          return alert("Select at least one .txt file");
+        const readers = Array.from(subFile.files).map((file) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result || "");
+            reader.onerror = (e) => reject(e);
+            reader.readAsText(file);
+          });
+        });
+        Promise.all(readers)
+          .then((contents) => {
+            const raw = contents.join("\n");
+            let urls = extractUrlsFromText(raw);
+            if (!urls.length)
+              urls = raw
+                .split(/\r?\n/)
+                .map(sanitizeLineKeepUrl)
+                .filter(Boolean);
+            const unique = Array.from(new Set(urls));
+            unique.sort((a, b) =>
+              a.localeCompare(b, undefined, {
+                numeric: true,
+                sensitivity: "base",
+              })
+            );
+            subInput.value = unique.join("\n");
+          })
+          .catch((err) =>
+            alert(
+              "Failed to read files: " +
+                (err && err.message ? err.message : err)
+            )
+          );
+      });
+
+      clearSub.addEventListener("click", () => {
+        subInput.value = "";
+        outPre.innerHTML = "";
+        outArea.style.display = "none";
+        downSub.style.display = "none";
+        countSub.textContent = "0";
+      });
+      copySub.addEventListener("click", () => {
+        const text = Array.from(outPre.querySelectorAll(".wl-line"))
+          .map((d) => d.textContent)
+          .join("\n");
+        if (!text.trim()) return alert("Nothing to copy");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(
+            () => {
+              copySub.textContent = "Copied!";
+              setTimeout(() => (copySub.textContent = "Copy All"), 1200);
+            },
+            () => alert("Copy failed")
+          );
+        } else {
+          const tmp = document.createElement("textarea");
+          tmp.value = text;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand("copy");
+          document.body.removeChild(tmp);
+          copySub.textContent = "Copied!";
+          setTimeout(() => (copySub.textContent = "Copy All"), 1200);
+        }
+      });
+      ffufBtn.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText)
+            await navigator.clipboard.writeText(FFUF_LOOP);
+          else {
+            const t = document.createElement("textarea");
+            t.value = FFUF_LOOP;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand("copy");
+            document.body.removeChild(t);
+          }
+          ffufBtn.textContent = "Copied ffuf loop";
+          setTimeout(() => (ffufBtn.textContent = "Copy ffuf loop"), 1200);
+        } catch (e) {
+          alert("Copy failed: " + e);
+        }
+      });
+      dirBtn.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText)
+            await navigator.clipboard.writeText(DIRSEARCH_LOOP);
+          else {
+            const t = document.createElement("textarea");
+            t.value = DIRSEARCH_LOOP;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand("copy");
+            document.body.removeChild(t);
+          }
+          dirBtn.textContent = "Copied dirsearch loop";
+          setTimeout(() => (dirBtn.textContent = "Copy dirsearch loop"), 1200);
+        } catch (e) {
+          alert("Copy failed: " + e);
+        }
+      });
+
+      // ==========================================
+      // ============ OSINT DORKS LOGIC ===========
+      // ==========================================
+
+      const dorkUrlsEl = document.getElementById("dork-urls");
+      const dorkCustomEl = document.getElementById("dork-custom");
+      const dorkPreviewEl = document.getElementById("dork-preview");
+      const dorkResultsArea = document.getElementById("dork-resultsArea");
+
+      // Get the default template from the hidden script tag
+      const defaultDorksTemplate = document
+        .getElementById("default-dorks")
+        .textContent.trim();
+
+      const dorkFilter =
+        " NOT xxxx NOT **** NOT 123 NOT changeme NOT example NOT guest NOT localhost NOT fake NOT 1234 NOT xxx NOT 127.0.0.1 NOT test NOT tracker NOT RobotsDisallowed NOT disallowed NOT robots";
+      const dorkFilterHttp =
+        " NOT http: NOT https: NOT xxxx NOT **** NOT 123 NOT changeme NOT example NOT guest NOT localhost NOT fake NOT 1234 NOT xxx NOT 127.0.0.1 NOT test NOT tracker NOT RobotsDisallowed NOT disallowed NOT robots";
+
+      // Extract domain, SLD, subdomain from host
+      function getDorkDomainInfo(line) {
+        line = (line || "").trim();
+        if (!line) return null;
+        let host;
+        try {
+          host = new URL(line).hostname;
+        } catch {
+          const cleaned = line
+            .replace(/^https?:\/\//i, "")
+            .replace(/^www\./i, "")
+            .split(/[\/\s:]+/)[0];
+          if (!cleaned) return null;
+          host = cleaned;
+        }
+        const parts = host.split(".");
+        const domain = parts.length >= 2 ? parts.slice(-2).join(".") : host;
+        const SLD = domain.split(".")[0];
+        const subdomain = host;
+        return { domain, SLD, subdomain };
+      }
+
+      // Case-insensitive token replace
+      function replaceDorkTokens(text, info) {
+        return text
+          .replace(/\{domain\}/gi, info.domain)
+          .replace(/\{SLD\}/gi, info.SLD)
+          .replace(/\{subdomain\}/gi, info.subdomain);
+      }
+
+      // Build preview
+      function buildDorkLivePreview() {
+        const lines = dorkUrlsEl.value
+          .trim()
+          .split(/\r?\n/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+
+        // Deduplicate input domains before processing
+        const seenDomains = new Set();
+        const items = [];
+
+        for (let line of lines) {
+          const info = getDorkDomainInfo(line);
+          if (info && !seenDomains.has(info.domain)) {
+            seenDomains.add(info.domain);
+            items.push(info);
+          }
+        }
+
+        if (!items.length) {
+          dorkPreviewEl.value = "";
+          return;
+        }
+
+        const custom = dorkCustomEl.value.trim();
+        let blocks = [];
+
+        for (const info of items) {
+          if (custom) {
+            // User provided a custom dork
+            const processed = replaceDorkTokens(custom, info);
+            blocks.push(`# ${info.domain}\n${processed}`);
+          } else {
+            // User provided nothing, use the massive default list
+            const processed = replaceDorkTokens(defaultDorksTemplate, info);
+            blocks.push(`# ${info.domain} \n\n${processed}`);
+          }
+        }
+        dorkPreviewEl.value = blocks.join("\n\n");
+      }
+
+      dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
+      dorkCustomEl.addEventListener("input", buildDorkLivePreview);
+
+      // Helper to insert text
+      function insertAtDorkCursor(field, text) {
+        const start = field.selectionStart;
+        const end = field.selectionEnd;
+        field.value =
+          field.value.substring(0, start) + text + field.value.substring(end);
+        field.selectionStart = field.selectionEnd = start + text.length;
+        field.focus();
+      }
+
+      document
+        .getElementById("dork-addFilter")
+        .addEventListener("click", () => {
+          insertAtDorkCursor(dorkPreviewEl, " {filter}");
+        });
+      document
+        .getElementById("dork-addFilterHttp")
+        .addEventListener("click", () => {
+          insertAtDorkCursor(dorkPreviewEl, " {filter_http}");
+        });
+
+      // Generate final results
+      document.getElementById("dork-generate").addEventListener("click", () => {
+        const finalText = dorkPreviewEl.value.trim();
+        if (!finalText) return;
+        const blocks = finalText
+          .split(/\n+/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+
+        // Remove header comments (# ...) from logic
+        let cleanedBlocks = [];
+        blocks.forEach((block) => {
+          if (!block.startsWith("#")) cleanedBlocks.push(block);
+        });
+
+        // --- FIX: Completely clear the output area before rebuilding ---
+        dorkResultsArea.innerHTML = "";
+
+        // Track unique links to avoid duplicates in the final output
+        const seenDorks = new Set();
+        let validLinksCount = 0;
+
+        // Create container for links
+        const linksDiv = document.createElement("div");
+        linksDiv.id = "dork-links";
+
+        cleanedBlocks.forEach((block) => {
+          let extra = "";
+          if (block.includes("{filter_http}")) extra = dorkFilterHttp;
+          else if (block.includes("{filter}")) extra = dorkFilter;
+
+          const finalDork = block
+            .replace("{filter}", "")
+            .replace("{filter_http}", "")
+            .trim();
+          if (!finalDork) return;
+
+          // Skip duplicate dorks
+          if (seenDorks.has(finalDork)) return;
+          seenDorks.add(finalDork);
+          validLinksCount++;
+
+          const encoded = encodeURIComponent(finalDork);
+          const url = `https://github.com/search?q=${encoded}${extra}&type=code`;
+
+          const linkEl = document.createElement("div");
+          linkEl.className = "dork-entry";
+          linkEl.innerHTML = `
+        <div style="color:var(--muted);font-size:11px; margin-bottom:2px">Dork ${validLinksCount}</div>
+        <a class="result-link" href="${url}" target="_blank">${finalDork}</a>
+      `;
+          linksDiv.appendChild(linkEl);
+        });
+
+        // Prepend the intro header
+        const introDiv = document.createElement("div");
+        introDiv.style.color = "var(--muted)";
+        introDiv.style.marginBottom = "8px";
+        introDiv.textContent = `Generated ${validLinksCount} GitHub search links:`;
+
+        dorkResultsArea.appendChild(introDiv);
+        dorkResultsArea.appendChild(linksDiv);
+      });
+
+      document
+        .getElementById("dork-copy")
+        .addEventListener("click", async () => {
+          const links = Array.from(
+            document.querySelectorAll("#dork-links a.result-link")
+          )
+            .map((a) => a.href)
+            .join("\n");
+          if (!links) return;
+          await navigator.clipboard.writeText(links);
+          const btn = document.getElementById("dork-copy");
+          const original = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(() => (btn.textContent = original), 1200);
+        });
+
+      // Run preview once on load in case there is data
+      buildDorkLivePreview();
+    </script>
+  </body>
+</html>
