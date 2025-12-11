@@ -23,7 +23,7 @@
       .wrap {
         max-width: 980px;
         margin: 36px auto;
-        padding: 24px;
+        padding: 0px;
       }
       header {
         display: flex;
@@ -208,10 +208,63 @@
         color: #bfe3ff;
       }
 
+      /* file upload inline controls */
+      .file-upload {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .file-upload textarea {
+        flex: 1;
+        min-height: 75px;
+      }
+      .file-upload .side {
+        width: 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .file-upload .file-btn {
+        padding: 8px 10px;
+        font-size: 13px;
+        border-radius: 8px;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        cursor: pointer;
+        text-align: center;
+      }
+      .file-upload .file-btn:hover {
+        border-color: var(--muted);
+        color: inherit;
+      }
+      .file-upload .file-fname {
+        color: var(--muted);
+        font-size: 12px;
+        max-height: 3.6em;
+        overflow: hidden;
+        word-break: break-word;
+      }
       @media (max-width: 640px) {
-        .row {
+        .file-upload {
           flex-direction: column;
         }
+        .file-upload .side {
+          width: 100%;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+        }
+        .file-upload .file-fname {
+          max-width: 60%;
+        }
+      }
+      textarea { transition: all 0.16s ease; }
+      /* class applied when a textarea is expanded for free editing */
+      .expanded-textarea {
+        min-height: 220px !important;
+        height: auto !important;
       }
     </style>
   </head>
@@ -498,34 +551,55 @@
       <section id="tab-dorks" class="tab-content hidden">
         <div class="card">
           <label class="small">Target URLs (one per line)</label>
-          <textarea
-            id="dork-urls"
-            placeholder="https://sub.example.com/page&#10;https://dev.target.co.uk"
-          ></textarea>
+          <div class="file-upload">
+            <textarea
+              id="dork-urls"
+              placeholder="https://sub.example.com/page&#10;https://dev.target.co.uk"
+            ></textarea>
+            <div class="side">
+              <input id="dork-urls-file" type="file" accept=".txt" style="display:none" />
+              <button id="load-dork-urls" class="file-btn" title="Load .txt">Upload URLs</button>
+              <div id="dork-urls-fname" class="file-fname"></div>
+            </div>
+          </div>
 
           <label class="small" style="margin-top: 14px"
             >Custom Dork (optional - leave empty for Defaults)</label
           >
-          <textarea
-            id="dork-custom"
-            style="min-height: 90px"
-            placeholder="Use {domain}, {SLD}, {subdomain} — e.g., {domain} password"
-          ></textarea>
+          <div class="file-upload" style="margin-top:6px">
+            <textarea
+              id="dork-custom"
+              placeholder="Use {domain}, {SLD}, {subdomain} — e.g., {domain} password"
+              style="min-height:65px"
+            ></textarea>
+            <div class="side">
+              <input id="dork-custom-file" type="file" accept=".txt" style="display:none" />
+              <button id="load-dork-custom" class="file-btn" title="Load custom dork file">Upload Dork</button>
+              <div id="dork-custom-fname" class="file-fname"></div>
+            </div>
+          </div>
 
           <!-- new: keywords input -->
           <label class="small" style="margin-top: 10px"
-            >Interesting Keywords (one per line) — replaces {keywords}</label
+            >Interesting Keywords (optional - leave empty for Defaults)</label
           >
-          <textarea
-            id="dork-keywords"
-            style="min-height: 80px"
-            placeholder="e.g.&#10;password&#10;secret&#10;api_key"
-          ></textarea>
+          <div class="file-upload" style="margin-top:6px">
+            <textarea
+              id="dork-keywords"
+              placeholder="e.g.Password&#10;DB_PASSWORD&#10;DB_PASS&#10;Secret&#10;Secret_Key&#10;SecretKey&#10;Client_Secret&#10;SecretAccessKey&#10;Secret_Access_Key&#10;Credentials&#10;Token&#10;ApiToken&#10;Api_Token&#10;ApiKey&#10;Api_Key&#10;Auth_Token&#10;AuthToken&#10;Access_Token&#10;AccessToken"
+              style="min-height:90px"
+            ></textarea>
+            <div class="side">
+              <input id="dork-keywords-file" type="file" accept=".txt" style="display:none" />
+              <button id="load-dork-keywords" class="file-btn" title="Load keywords file">Upload Keywords</button>
+              <div id="dork-keywords-fname" class="file-fname"></div>
+            </div>
+          </div>
 
           <label class="small" style="margin-top: 14px"
             >Dorks Used — Live Preview (editable)</label
           >
-          <textarea id="dork-preview" style="min-height: 150px"></textarea>
+          <textarea id="dork-preview" style="min-height: 90px"></textarea>
 
           <div class="actions row">
             <button id="dork-generate">Generate Links</button>
@@ -955,6 +1029,16 @@
       const dorkKeywordsEl = document.getElementById("dork-keywords");
       const dorkPreviewEl = document.getElementById("dork-preview");
       const dorkResultsArea = document.getElementById("dork-resultsArea");
+      // file upload controls
+      const dorkUrlsFile = document.getElementById("dork-urls-file");
+      const loadDorkUrlsBtn = document.getElementById("load-dork-urls");
+      const dorkUrlsFname = document.getElementById("dork-urls-fname");
+      const dorkCustomFile = document.getElementById("dork-custom-file");
+      const loadDorkCustomBtn = document.getElementById("load-dork-custom");
+      const dorkCustomFname = document.getElementById("dork-custom-fname");
+      const dorkKeywordsFile = document.getElementById("dork-keywords-file");
+      const loadDorkKeywordsBtn = document.getElementById("load-dork-keywords");
+      const dorkKeywordsFname = document.getElementById("dork-keywords-fname");
 
       // Get the default template from the hidden script tag
       const defaultDorksTemplate = document
@@ -967,6 +1051,28 @@
         " NOT http: NOT https: NOT xxxx NOT **** NOT 123 NOT changeme NOT example NOT guest NOT localhost NOT fake NOT 1234 NOT xxx NOT 127.0.0.1 NOT test NOT tracker NOT RobotsDisallowed NOT disallowed NOT robots";
       const dorkFilterSelect = document.getElementById("dork-filter-select");
       const dorkApplyAll = document.getElementById("dork-apply-all");
+      // default keywords used when user did not provide/upload any
+      const defaultKeywords = [
+        "Password",
+        "DB_PASSWORD",
+        "DB_PASS",
+        "Secret",
+        "Secret_Key",
+        "SecretKey",
+        "Client_Secret",
+        "SecretAccessKey",
+        "Secret_Access_Key",
+        "Credentials",
+        "Token",
+        "ApiToken",
+        "Api_Token",
+        "ApiKey",
+        "Api_Key",
+        "Auth_Token",
+        "AuthToken",
+        "Access_Token",
+        "AccessToken",
+      ];
 
       // Extract domain, SLD, subdomain from host
       function getDorkDomainInfo(line) {
@@ -1025,10 +1131,12 @@
 
         const custom = dorkCustomEl.value.trim();
         const rawKeywords = (dorkKeywordsEl && dorkKeywordsEl.value) || "";
-        const keywords = rawKeywords
+        let keywords = rawKeywords
           .split(/\r?\n/)
           .map((k) => k.trim())
           .filter(Boolean);
+        // fallback to default keyword set when user didn't provide any
+        if (!keywords.length) keywords = defaultKeywords.slice();
          let blocks = [];
 
          for (const info of items) {
@@ -1094,66 +1202,138 @@
          }
          dorkPreviewEl.value = blocks.join("\n\n");
        }
+ 
+      // auto-expand helper: grow textarea to fit content
+      function autoExpand(el, min = 75) {
+        if (!el) return;
+        el.style.height = "auto";
+        const newH = Math.max(el.scrollHeight, min);
+        el.style.height = newH + "px";
+      }
 
-      dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
-      dorkCustomEl.addEventListener("input", buildDorkLivePreview);
-      // update preview in real-time when global filter or the "apply to all" checkbox changes
+      // expand on focus/click, collapse when clicking outside
+      (function wireExpandableTextareas() {
+        const ids = ["dork-urls", "dork-custom", "dork-keywords", "dork-preview"];
+        let expandedEl = null;
+
+        function expandEl(el) {
+          if (!el) return;
+          // collapse previous
+          if (expandedEl && expandedEl !== el) collapseEl(expandedEl);
+          el.classList.add("expanded-textarea");
+          autoExpand(el, 120);
+          expandedEl = el;
+        }
+
+        function collapseEl(el) {
+          if (!el) return;
+          el.classList.remove("expanded-textarea");
+          // reset inline height so CSS/placeholder sizes apply again
+          el.style.height = "";
+          el.style.minHeight = "";
+          expandedEl = expandedEl === el ? null : expandedEl;
+        }
+
+        // wire events
+        ids.forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener("focus", () => expandEl(el));
+          el.addEventListener("click", () => expandEl(el));
+          el.addEventListener("input", () => autoExpand(el));
+        });
+
+        // collapse when clicking anywhere outside the expanded textarea(s)
+        document.addEventListener("click", (ev) => {
+          const target = ev.target;
+          if (!expandedEl) return;
+          // if the click is inside the expanded element, keep it open
+          if (target === expandedEl || target.closest && target.closest(`#${expandedEl.id}`)) {
+            return;
+          }
+          // allow clicks on file-upload buttons related to the textarea to be considered "outside"
+          // so collapsing behavior is consistent with user's request
+          collapseEl(expandedEl);
+        });
+      })();
+      // modern file loaders: open file dialog then read txt into the corresponding textarea
+      function wireFileLoader(button, fileInput, targetTextarea, fnameEl) {
+        if (!button || !fileInput || !targetTextarea) return;
+        button.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", (ev) => {
+          const f = fileInput.files && fileInput.files[0];
+          if (!f) return;
+          fnameEl && (fnameEl.textContent = f.name);
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            targetTextarea.value = e.target.result || "";
+            // trigger preview update
+            buildDorkLivePreview();
+            // expand to show content
+            autoExpand(targetTextarea);
+          };
+          reader.readAsText(f);
+        });
+      }
+
+      wireFileLoader(loadDorkUrlsBtn, dorkUrlsFile, dorkUrlsEl, dorkUrlsFname);
+      wireFileLoader(loadDorkCustomBtn, dorkCustomFile, dorkCustomEl, dorkCustomFname);
+      wireFileLoader(loadDorkKeywordsBtn, dorkKeywordsFile, dorkKeywordsEl, dorkKeywordsFname);
+
+      // ensure live preview updates in real-time for any user input/upload
+      if (dorkUrlsEl) {
+        dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
+        dorkUrlsEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+      }
+      if (dorkCustomEl) {
+        dorkCustomEl.addEventListener("input", buildDorkLivePreview);
+        dorkCustomEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+      }
+      if (dorkKeywordsEl) {
+        dorkKeywordsEl.addEventListener("input", buildDorkLivePreview);
+        dorkKeywordsEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+      }
       if (dorkFilterSelect) dorkFilterSelect.addEventListener("change", buildDorkLivePreview);
       if (dorkApplyAll) dorkApplyAll.addEventListener("change", buildDorkLivePreview);
-      // update preview in real-time when keywords change
-      if (dorkKeywordsEl) dorkKeywordsEl.addEventListener("input", buildDorkLivePreview);
-      
-      // Helper to insert text
-      function insertAtDorkCursor(field, text) {
-        const start = field.selectionStart;
-        const end = field.selectionEnd;
-        field.value =
-          field.value.substring(0, start) + text + field.value.substring(end);
-        field.selectionStart = field.selectionEnd = start + text.length;
-        field.focus();
-      }
- 
-      document
-        .getElementById("dork-addFilter")
-        .addEventListener("click", () => {
-          insertAtDorkCursor(dorkPreviewEl, " {filter}");
-        });
-      document
-        .getElementById("dork-addFilterHttp")
-        .addEventListener("click", () => {
-          insertAtDorkCursor(dorkPreviewEl, " {filter_http}");
-        });
 
-      // Generate final results
+      // Run preview once on load in case there is data
+      buildDorkLivePreview();
+
+      // ---------- Final Dork Generation ----------
       document.getElementById("dork-generate").addEventListener("click", () => {
         const finalText = dorkPreviewEl.value.trim();
         if (!finalText) return;
-        const blocks = finalText
-          .split(/\n+/)
-          .map((x) => x.trim())
+
+        // Split preview into blocks separated by 2+ newlines (each block represents a domain/keyword group)
+        const rawBlocks = finalText
+          .split(/\n{2,}/)
+          .map((b) => b.trim())
           .filter(Boolean);
 
-        // Remove header comments (# ...) from logic
-        let cleanedBlocks = [];
-        blocks.forEach((block) => {
-          if (!block.startsWith("#")) cleanedBlocks.push(block);
+        // Extract individual dork lines (strip header comment lines that start with '#')
+        const cleanedLines = [];
+        rawBlocks.forEach((b) => {
+          b.split(/\n/).forEach((line) => {
+            const t = line.trim();
+            if (!t) return;
+            if (t.startsWith("#")) return; // skip header/comment lines
+            cleanedLines.push(t);
+          });
         });
 
-        // --- FIX: Completely clear the output area before rebuilding ---
+        // clear output
         dorkResultsArea.innerHTML = "";
 
-        // Track unique links to avoid duplicates in the final output
         const seenDorks = new Set();
         let validLinksCount = 0;
-
-        // Create container for links
         const linksDiv = document.createElement("div");
         linksDiv.id = "dork-links";
 
         const applyAll = dorkApplyAll && dorkApplyAll.checked;
         const selected = dorkFilterSelect ? dorkFilterSelect.value : "none";
 
-        cleanedBlocks.forEach((block) => {
+        cleanedLines.forEach((line) => {
+          let block = line;
           // determine extra filter (from token in block or global selection)
           let extra = "";
           if (block.includes("{filter_http}")) extra = dorkFilterHttp;
@@ -1161,37 +1341,42 @@
           else if (applyAll && selected === "filter_http") extra = dorkFilterHttp;
           else if (applyAll && selected === "filter") extra = dorkFilter;
 
-          const finalDork = block
-            .replace("{filter}", "")
-            .replace("{filter_http}", "")
-            .trim();
+          const finalDork = block.replace("{filter}", "").replace("{filter_http}", "").trim();
           if (!finalDork) return;
-
-          // Skip duplicate dorks
           if (seenDorks.has(finalDork)) return;
           seenDorks.add(finalDork);
           validLinksCount++;
 
-          const encoded = encodeURIComponent(finalDork);
-          const url = `https://github.com/search?q=${encoded}${extra}&type=code`;
+          // encode entire query (dork + extra) so spaces and operators are preserved
+          const fullQuery = finalDork + (extra ? " " + extra.trim() : "");
+          const url = `https://github.com/search?q=${encodeURIComponent(fullQuery)}&type=code`;
 
           const linkEl = document.createElement("div");
           linkEl.className = "dork-entry";
           linkEl.innerHTML = `
         <div style="color:var(--muted);font-size:11px; margin-bottom:2px">Dork ${validLinksCount}</div>
-        <a class="result-link" href="${url}" target="_blank">${finalDork}</a>
+        <a class="result-link" href="${url}" target="_blank" rel="noopener noreferrer">${finalDork}</a>
       `;
           linksDiv.appendChild(linkEl);
         });
 
-        // Prepend the intro header
         const introDiv = document.createElement("div");
-        introDiv.style.color = "var(--muted)";
+               introDiv.style.color = "var(--muted)";
         introDiv.style.marginBottom = "8px";
         introDiv.textContent = `Generated ${validLinksCount} GitHub search links:`;
 
         dorkResultsArea.appendChild(introDiv);
         dorkResultsArea.appendChild(linksDiv);
+
+        // scroll to first generated item smoothly
+        const firstLink = linksDiv.querySelector(".dork-entry");
+        if (firstLink) {
+          // scroll the results area container to the first link
+          firstLink.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          // fallback: scroll results area into view
+          dorkResultsArea.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       });
 
       // mark a dork link as clicked (delegated)
@@ -1216,9 +1401,6 @@
           btn.textContent = "Copied!";
           setTimeout(() => (btn.textContent = original), 1200);
         });
-
-      // Run preview once on load in case there is data
-      buildDorkLivePreview();
     </script>
   </body>
 </html>
