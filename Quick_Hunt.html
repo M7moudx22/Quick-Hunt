@@ -221,16 +221,16 @@
       /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      org:{sld} /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      org:{sld} /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
+      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       org:{sld} /[$#^]?pass[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /{sld}(?:[a-zA-Z0-9_-]+\.)+service-now\.com/
       /{sld}(?:[a-zA-Z0-9_-]+\.)+servicenow\.com/
@@ -238,26 +238,26 @@
       /{sld}(?:[a-zA-Z0-9-]+\.){2,}servicenow\.com/
       /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?Token[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /odbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
@@ -270,26 +270,26 @@
       /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?Token[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?password[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /confluence[a-zA-Z0-9_-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /odbc:[a-zA-Z0-9_-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
@@ -300,19 +300,19 @@
       /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?secret[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?CLIENT_SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?SECRET[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /gserviceaccount.com/ AND /BEGIN PRIVATE KEY/ NOT /@project.iam.gserviceaccount.com/ NOT /your-client-email-here/ NOT /your-service-account/ NOT /@yourproject/ NOT /@{YOUR-PROJECT-ID}/ NOT /@\[your-project\]/ NOT /@\<project/
     </script>
 
@@ -510,6 +510,16 @@
             id="dork-custom"
             style="min-height: 90px"
             placeholder="Use {domain}, {SLD}, {subdomain} — e.g., {domain} password"
+          ></textarea>
+
+          <!-- new: keywords input -->
+          <label class="small" style="margin-top: 10px"
+            >Keywords (one per line) — replaces {keywords}</label
+          >
+          <textarea
+            id="dork-keywords"
+            style="min-height: 80px"
+            placeholder="e.g.&#10;password&#10;secret&#10;api_key"
           ></textarea>
 
           <label class="small" style="margin-top: 14px"
@@ -942,6 +952,7 @@
 
       const dorkUrlsEl = document.getElementById("dork-urls");
       const dorkCustomEl = document.getElementById("dork-custom");
+      const dorkKeywordsEl = document.getElementById("dork-keywords");
       const dorkPreviewEl = document.getElementById("dork-preview");
       const dorkResultsArea = document.getElementById("dork-resultsArea");
 
@@ -1013,44 +1024,84 @@
         }
 
         const custom = dorkCustomEl.value.trim();
-        let blocks = [];
+        const rawKeywords = (dorkKeywordsEl && dorkKeywordsEl.value) || "";
+        const keywords = rawKeywords
+          .split(/\r?\n/)
+          .map((k) => k.trim())
+          .filter(Boolean);
+         let blocks = [];
 
-        for (const info of items) {
-          if (custom) {
-            // User provided a custom dork
+         for (const info of items) {
+           if (custom) {
+             // User provided a custom dork
             const processed = replaceDorkTokens(custom, info);
-            let shown = processed;
-            // if apply-all checked, append visible token to preview
-            if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
-              if (dorkFilterSelect.value === "filter") shown += " {filter}";
-              else if (dorkFilterSelect.value === "filter_http") shown += " {filter_http}";
+            if (keywords.length) {
+              for (const kw of keywords) {
+                let shown = processed.replace(/\{keywords\}/gi, kw);
+                if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
+                  if (dorkFilterSelect.value === "filter") shown += " {filter}";
+                  else if (dorkFilterSelect.value === "filter_http") shown += " {filter_http}";
+                }
+                blocks.push(`# ${info.domain} — ${kw}\n${shown}`);
+              }
+            } else {
+              let shown = processed.replace(/\{keywords\}/gi, "").trim();
+              if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
+                if (dorkFilterSelect.value === "filter") shown += " {filter}";
+                else if (dorkFilterSelect.value === "filter_http") shown += " {filter_http}";
+              }
+              blocks.push(`# ${info.domain}\n${shown}`);
             }
-            blocks.push(`# ${info.domain}\n${shown}`);
-          } else {
-            // User provided nothing, use the massive default list
+           } else {
+             // User provided nothing, use the massive default list
             const processed = replaceDorkTokens(defaultDorksTemplate, info);
-            let shown = processed;
-            if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
-              if (dorkFilterSelect.value === "filter") shown = shown
-                .split("\n")
-                .map((l) => (l.trim() ? l + " {filter}" : l))
-                .join("\n");
-              else if (dorkFilterSelect.value === "filter_http") shown = shown
-                .split("\n")
-                .map((l) => (l.trim() ? l + " {filter_http}" : l))
-                .join("\n");
+            if (keywords.length) {
+              for (const kw of keywords) {
+                let shown = processed.replace(/\{keywords\}/gi, kw);
+                if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
+                  if (dorkFilterSelect.value === "filter") {
+                    shown = shown
+                      .split("\n")
+                      .map((l) => (l.trim() ? l + " {filter}" : l))
+                      .join("\n");
+                  } else if (dorkFilterSelect.value === "filter_http") {
+                    shown = shown
+                      .split("\n")
+                      .map((l) => (l.trim() ? l + " {filter_http}" : l))
+                      .join("\n");
+                  }
+                }
+                blocks.push(`# ${info.domain} — ${kw} \n\n${shown}`);
+              }
+            } else {
+              let shown = processed.replace(/\{keywords\}/gi, "");
+              if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
+                if (dorkFilterSelect.value === "filter") {
+                  shown = shown
+                    .split("\n")
+                    .map((l) => (l.trim() ? l + " {filter}" : l))
+                    .join("\n");
+                } else if (dorkFilterSelect.value === "filter_http") {
+                  shown = shown
+                    .split("\n")
+                    .map((l) => (l.trim() ? l + " {filter_http}" : l))
+                    .join("\n");
+                }
+              }
+              blocks.push(`# ${info.domain} \n\n${shown}`);
             }
-            blocks.push(`# ${info.domain} \n\n${shown}`);
-          }
-        }
-        dorkPreviewEl.value = blocks.join("\n\n");
-      }
+           }
+         }
+         dorkPreviewEl.value = blocks.join("\n\n");
+       }
 
       dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
       dorkCustomEl.addEventListener("input", buildDorkLivePreview);
       // update preview in real-time when global filter or the "apply to all" checkbox changes
       if (dorkFilterSelect) dorkFilterSelect.addEventListener("change", buildDorkLivePreview);
       if (dorkApplyAll) dorkApplyAll.addEventListener("change", buildDorkLivePreview);
+      // update preview in real-time when keywords change
+      if (dorkKeywordsEl) dorkKeywordsEl.addEventListener("input", buildDorkLivePreview);
       
       // Helper to insert text
       function insertAtDorkCursor(field, text) {
