@@ -9,7 +9,7 @@ The application includes Quick_Hunt utilities; do not use this code to perform u
 ---
 Make sure to use the right `<path to your wordlist>` before running the ffuf tool
 
-<img width="1237" height="906" alt="image" src="https://github.com/user-attachments/assets/ed70ea75-2ec4-4380-aaa1-e69a9797197b" />
+<img width="1234" height="891" alt="image" src="https://github.com/user-attachments/assets/186a728e-3314-4772-b71e-b43557192ab0" />
 
 ## JSON Generator
 Purpose: take a list of parameter names and produce a JSON object mapping each parameter to a synthetic default payload value.
