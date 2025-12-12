@@ -270,14 +270,14 @@
   </head>
   <body>
     <script id="default-dorks" type="text/plain">
-      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/
       /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
-      /@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
       /{sld}(?:[a-zA-Z0-9-]+\.)+service-now\.com/
       /{sld}(?:[a-zA-Z0-9-]+\.)+servicenow\.com/
