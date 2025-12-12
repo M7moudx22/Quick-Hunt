@@ -274,28 +274,28 @@
       /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/
       /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ AND PATH:.env
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/ AND PATH:.env
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /{sld}(?:[a-zA-Z0-9-]+\.)+service-now\.com/
       /{sld}(?:[a-zA-Z0-9-]+\.)+servicenow\.com/
       /{sld}(?:[a-zA-Z0-9-]+\.){2,}service-now\.com/
       /{sld}(?:[a-zA-Z0-9-]+\.){2,}servicenow\.com/
       /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
@@ -308,17 +308,17 @@
       /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
       /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
@@ -329,13 +329,13 @@
       /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
       /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
-      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][a-zA-Z1-9-_$#^]*/
       /gserviceaccount.com/ AND /BEGIN PRIVATE KEY/ NOT /@project.iam.gserviceaccount.com/ NOT /your-client-email-here/ NOT /your-service-account/ NOT /@yourproject/ NOT /@{YOUR-PROJECT-ID}/ NOT /@\[your-project\]/ NOT /@\<project/
     </script>
 
