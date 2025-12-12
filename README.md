@@ -1,6 +1,6 @@
 # Quick Hunt — README
 
-The application includes Quick_Hunt utilities; do not use this code to perform unlawful or unethical activities.
+Quick_Hunt utilities; do not use this code to perform unlawful or unethical activities.
 
 - Three main feature tabs:
   - JSON Generator
