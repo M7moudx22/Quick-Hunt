@@ -260,7 +260,9 @@
           max-width: 60%;
         }
       }
-      textarea { transition: all 0.16s ease; }
+      textarea {
+        transition: all 0.16s ease;
+      }
       /* class applied when a textarea is expanded for free editing */
       .expanded-textarea {
         min-height: 220px !important;
@@ -371,15 +373,17 @@
           <div>
             <h1></h1>
             <div class="small" style="color: var(--muted); margin-bottom: 0">
-              Quick tools to generate JSON parameters, wordlists for
-              fuzzing, and GitHub dorks for reconnaissance.
+              Quick tools to generate JSON parameters, wordlists for fuzzing,
+              and GitHub dorks for reconnaissance.
             </div>
           </div>
         </div>
       </header>
       <div class="tabs">
         <button class="tab-btn active" data-tab="json">JSON Generator</button>
-        <button class="tab-btn" data-tab="wordlist">Wordlist Fuzzing Generator</button>
+        <button class="tab-btn" data-tab="wordlist">
+          Wordlist Fuzzing Generator
+        </button>
         <button class="tab-btn" data-tab="dorks">Github Dorks Generate</button>
       </div>
 
@@ -438,9 +442,7 @@
 
       <section id="tab-wordlist" class="tab-content hidden">
         <div class="card">
-          <label for="subdomain-input" class="small"
-            >Enter subdomains:</label
-          >
+          <label for="subdomain-input" class="small">Enter subdomains:</label>
           <textarea
             id="subdomain-input"
             placeholder="e.g.&#10;dev.example.com:8080/admin&#10;example.com/path/to/"
@@ -527,8 +529,15 @@
               placeholder="example.com&#10;https://dev.target.com/login"
             ></textarea>
             <div class="side">
-              <input id="dork-urls-file" type="file" accept=".txt" style="display:none" />
-              <button id="load-dork-urls" class="file-btn" title="Load .txt">Upload URLs</button>
+              <input
+                id="dork-urls-file"
+                type="file"
+                accept=".txt"
+                style="display: none"
+              />
+              <button id="load-dork-urls" class="file-btn" title="Load .txt">
+                Upload URLs
+              </button>
               <div id="dork-urls-fname" class="file-fname"></div>
             </div>
           </div>
@@ -536,15 +545,26 @@
           <label class="small" style="margin-top: 14px"
             >Custom Dork (optional - leave empty for Defaults)</label
           >
-          <div class="file-upload" style="margin-top:6px">
+          <div class="file-upload" style="margin-top: 6px">
             <textarea
               id="dork-custom"
               placeholder="Use {domain}, {SLD}, {subdomain} — e.g., {domain} password"
-              style="min-height:65px"
+              style="min-height: 65px"
             ></textarea>
             <div class="side">
-              <input id="dork-custom-file" type="file" accept=".txt" style="display:none" />
-              <button id="load-dork-custom" class="file-btn" title="Load custom dork file">Upload Dork</button>
+              <input
+                id="dork-custom-file"
+                type="file"
+                accept=".txt"
+                style="display: none"
+              />
+              <button
+                id="load-dork-custom"
+                class="file-btn"
+                title="Load custom dork file"
+              >
+                Upload Dork
+              </button>
               <div id="dork-custom-fname" class="file-fname"></div>
             </div>
           </div>
@@ -553,15 +573,26 @@
           <label class="small" style="margin-top: 10px"
             >Interesting Keywords (optional - leave empty for Defaults)</label
           >
-          <div class="file-upload" style="margin-top:6px">
+          <div class="file-upload" style="margin-top: 6px">
             <textarea
               id="dork-keywords"
               placeholder="e.g.Password&#10;DB_PASSWORD&#10;DB_PASS&#10;Secret&#10;Secret_Key&#10;SecretKey&#10;Client_Secret&#10;SecretAccessKey&#10;Secret_Access_Key&#10;Credentials&#10;Token&#10;ApiToken&#10;Api_Token&#10;ApiKey&#10;Api_Key&#10;Auth_Token&#10;AuthToken&#10;Access_Token&#10;AccessToken"
-              style="min-height:90px"
+              style="min-height: 90px"
             ></textarea>
             <div class="side">
-              <input id="dork-keywords-file" type="file" accept=".txt" style="display:none" />
-              <button id="load-dork-keywords" class="file-btn" title="Load keywords file">Upload Keywords</button>
+              <input
+                id="dork-keywords-file"
+                type="file"
+                accept=".txt"
+                style="display: none"
+              />
+              <button
+                id="load-dork-keywords"
+                class="file-btn"
+                title="Load keywords file"
+              >
+                Upload Keywords
+              </button>
               <div id="dork-keywords-fname" class="file-fname"></div>
             </div>
           </div>
@@ -578,15 +609,41 @@
             <button id="dork-addFilterHttp" class="secondary">
               {filter_http}
             </button>
-            <div style="display:flex; align-items:center; gap:8px; margin-left:8px">
-              <label class="small" style="margin:0">Global filter</label>
-              <select id="dork-filter-select" style="padding:6px;border-radius:6px;background:#0d141f;color:inherit;border:1px solid var(--border)">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-left: 8px;
+              "
+            >
+              <label class="small" style="margin: 0">Global filter</label>
+              <select
+                id="dork-filter-select"
+                style="
+                  padding: 6px;
+                  border-radius: 6px;
+                  background: #0d141f;
+                  color: inherit;
+                  border: 1px solid var(--border);
+                "
+              >
                 <option value="none">None</option>
                 <option value="filter">{filter}</option>
                 <option value="filter_http">{filter_http}</option>
               </select>
-              <label style="display:flex;align-items:center;gap:6px;margin-left:6px">
-                <input type="checkbox" id="dork-apply-all" /> <span style="font-size:13px;color:var(--muted)">Apply to all</span>
+              <label
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                  margin-left: 6px;
+                "
+              >
+                <input type="checkbox" id="dork-apply-all" />
+                <span style="font-size: 13px; color: var(--muted)"
+                  >Apply to all</span
+                >
               </label>
             </div>
           </div>
@@ -735,7 +792,7 @@
       const HOST_VALID_RE =
         /^(?:localhost|\d{1,3}(?:\.\d{1,3}){3}|[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)$/;
 
-      // ---- sanitize a single raw line: remove ANSI junk, control chars, drop size lines, keep only before '[' ----
+      // ---- sanitize a single raw line: remove ANSI junk, control chars, drop size lines, keep only before '[' ----
       function sanitizeLineKeepUrl(line) {
         if (!line) return "";
         if (line.includes("\x1B[")) line = line.split("\x1B[")[0];
@@ -804,14 +861,251 @@
           host = hostPort.slice(0, idx);
           port = hostPort.slice(idx);
         }
-        const parts = host.split(".").filter(Boolean);
+        const parts = host.split(".").filter(Boolean).slice(0, -1);
         const results = [];
         results.push(`${scheme}${host}${port}${path}`);
         parts.forEach((p) => {
           results.push(`${scheme}${host}${port}${path}${p}/`);
         });
+
         parts.forEach((p) => {
           results.push(`${scheme}${host}${port}${path}http.${p}/`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Service/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Service/${p}Service.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Service/${p}Services.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Service/${p}WebService.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}Service/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}Service/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Services/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Services/${p}Service.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}Services/${p}Services.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}Services/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}Services/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}Services/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}WebService/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}WebService/${p}Service.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebService/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebService/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebService/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}WebServices/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebServices/${p}Service.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebServices/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebServices/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}WebService/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}${p}Service/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Service/${p}Service.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Service/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Service/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Service/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Service/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}${p}Services/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Services/${p}Service.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Services/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Services/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Services/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}Services/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}${p}WebService/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebService/${p}Service.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebService/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebService/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebService/${p}WebServices.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(`${scheme}${host}${port}${path}${p}WebServices/${p}.`);
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebServices/${p}Service.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebServices/${p}Services.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebServices/${p}WebService.`
+          );
+        });
+
+        parts.forEach((p) => {
+          results.push(
+            `${scheme}${host}${port}${path}${p}WebService/${p}WebServices.`
+          );
         });
         return results;
       }
@@ -1107,18 +1401,19 @@
           .filter(Boolean);
         // fallback to default keyword set when user didn't provide any
         if (!keywords.length) keywords = defaultKeywords.slice();
-         let blocks = [];
+        let blocks = [];
 
-         for (const info of items) {
-           if (custom) {
-             // User provided a custom dork
+        for (const info of items) {
+          if (custom) {
+            // User provided a custom dork
             const processed = replaceDorkTokens(custom, info);
             if (keywords.length) {
               for (const kw of keywords) {
                 let shown = processed.replace(/\{keywords\}/gi, kw);
                 if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
                   if (dorkFilterSelect.value === "filter") shown += " {filter}";
-                  else if (dorkFilterSelect.value === "filter_http") shown += " {filter_http}";
+                  else if (dorkFilterSelect.value === "filter_http")
+                    shown += " {filter_http}";
                 }
                 blocks.push(`# ${info.domain} — ${kw}\n${shown}`);
               }
@@ -1126,12 +1421,13 @@
               let shown = processed.replace(/\{keywords\}/gi, "").trim();
               if (dorkApplyAll && dorkApplyAll.checked && dorkFilterSelect) {
                 if (dorkFilterSelect.value === "filter") shown += " {filter}";
-                else if (dorkFilterSelect.value === "filter_http") shown += " {filter_http}";
+                else if (dorkFilterSelect.value === "filter_http")
+                  shown += " {filter_http}";
               }
               blocks.push(`# ${info.domain}\n${shown}`);
             }
-           } else {
-             // User provided nothing, use the massive default list
+          } else {
+            // User provided nothing, use the massive default list
             const processed = replaceDorkTokens(defaultDorksTemplate, info);
             if (keywords.length) {
               for (const kw of keywords) {
@@ -1168,11 +1464,11 @@
               }
               blocks.push(`# ${info.domain} \n\n${shown}`);
             }
-           }
-         }
-         dorkPreviewEl.value = blocks.join("\n\n");
-       }
- 
+          }
+        }
+        dorkPreviewEl.value = blocks.join("\n\n");
+      }
+
       // auto-expand helper: grow textarea to fit content
       function autoExpand(el, min = 75) {
         if (!el) return;
@@ -1183,7 +1479,12 @@
 
       // expand on focus/click, collapse when clicking outside
       (function wireExpandableTextareas() {
-        const ids = ["dork-urls", "dork-custom", "dork-keywords", "dork-preview"];
+        const ids = [
+          "dork-urls",
+          "dork-custom",
+          "dork-keywords",
+          "dork-preview",
+        ];
         let expandedEl = null;
 
         function expandEl(el) {
@@ -1218,7 +1519,10 @@
           const target = ev.target;
           if (!expandedEl) return;
           // if the click is inside the expanded element, keep it open
-          if (target === expandedEl || target.closest && target.closest(`#${expandedEl.id}`)) {
+          if (
+            target === expandedEl ||
+            (target.closest && target.closest(`#${expandedEl.id}`))
+          ) {
             return;
           }
           // allow clicks on file-upload buttons related to the textarea to be considered "outside"
@@ -1247,24 +1551,42 @@
       }
 
       wireFileLoader(loadDorkUrlsBtn, dorkUrlsFile, dorkUrlsEl, dorkUrlsFname);
-      wireFileLoader(loadDorkCustomBtn, dorkCustomFile, dorkCustomEl, dorkCustomFname);
-      wireFileLoader(loadDorkKeywordsBtn, dorkKeywordsFile, dorkKeywordsEl, dorkKeywordsFname);
+      wireFileLoader(
+        loadDorkCustomBtn,
+        dorkCustomFile,
+        dorkCustomEl,
+        dorkCustomFname
+      );
+      wireFileLoader(
+        loadDorkKeywordsBtn,
+        dorkKeywordsFile,
+        dorkKeywordsEl,
+        dorkKeywordsFname
+      );
 
       // ensure live preview updates in real-time for any user input/upload
       if (dorkUrlsEl) {
         dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
-        dorkUrlsEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+        dorkUrlsEl.addEventListener("paste", () =>
+          setTimeout(buildDorkLivePreview, 50)
+        );
       }
       if (dorkCustomEl) {
         dorkCustomEl.addEventListener("input", buildDorkLivePreview);
-        dorkCustomEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+        dorkCustomEl.addEventListener("paste", () =>
+          setTimeout(buildDorkLivePreview, 50)
+        );
       }
       if (dorkKeywordsEl) {
         dorkKeywordsEl.addEventListener("input", buildDorkLivePreview);
-        dorkKeywordsEl.addEventListener("paste", () => setTimeout(buildDorkLivePreview, 50));
+        dorkKeywordsEl.addEventListener("paste", () =>
+          setTimeout(buildDorkLivePreview, 50)
+        );
       }
-      if (dorkFilterSelect) dorkFilterSelect.addEventListener("change", buildDorkLivePreview);
-      if (dorkApplyAll) dorkApplyAll.addEventListener("change", buildDorkLivePreview);
+      if (dorkFilterSelect)
+        dorkFilterSelect.addEventListener("change", buildDorkLivePreview);
+      if (dorkApplyAll)
+        dorkApplyAll.addEventListener("change", buildDorkLivePreview);
 
       // Run preview once on load in case there is data
       buildDorkLivePreview();
@@ -1308,10 +1630,14 @@
           let extra = "";
           if (block.includes("{filter_http}")) extra = dorkFilterHttp;
           else if (block.includes("{filter}")) extra = dorkFilter;
-          else if (applyAll && selected === "filter_http") extra = dorkFilterHttp;
+          else if (applyAll && selected === "filter_http")
+            extra = dorkFilterHttp;
           else if (applyAll && selected === "filter") extra = dorkFilter;
 
-          const finalDork = block.replace("{filter}", "").replace("{filter_http}", "").trim();
+          const finalDork = block
+            .replace("{filter}", "")
+            .replace("{filter_http}", "")
+            .trim();
           if (!finalDork) return;
           if (seenDorks.has(finalDork)) return;
           seenDorks.add(finalDork);
@@ -1319,7 +1645,9 @@
 
           // encode entire query (dork + extra) so spaces and operators are preserved
           const fullQuery = finalDork + (extra ? " " + extra.trim() : "");
-          const url = `https://github.com/search?q=${encodeURIComponent(fullQuery)}&type=code`;
+          const url = `https://github.com/search?q=${encodeURIComponent(
+            fullQuery
+          )}&type=code`;
 
           const linkEl = document.createElement("div");
           linkEl.className = "dork-entry";
@@ -1331,7 +1659,7 @@
         });
 
         const introDiv = document.createElement("div");
-               introDiv.style.color = "var(--muted)";
+        introDiv.style.color = "var(--muted)";
         introDiv.style.marginBottom = "8px";
         introDiv.textContent = `Generated ${validLinksCount} GitHub search links:`;
 
@@ -1345,7 +1673,10 @@
           firstLink.scrollIntoView({ behavior: "smooth", block: "start" });
         } else {
           // fallback: scroll results area into view
-          dorkResultsArea.scrollIntoView({ behavior: "smooth", block: "start" });
+          dorkResultsArea.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         }
       });
 
