@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -14,8 +14,14 @@
         --border: rgba(255, 255, 255, 0.06);
       }
       body {
-        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
-          Helvetica, Arial;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
         margin: 0;
         background: linear-gradient(180deg, #071024 0%, #081226 100%);
         color: #e6eef8;
@@ -271,76 +277,6 @@
     </style>
   </head>
   <body>
-    <script id="default-dorks" type="text/plain">
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/
-      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/ AND PATH:.env
-      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /{sld}(?:[a-zA-Z0-9-]+\.)+service-now\.com/
-      /{sld}(?:[a-zA-Z0-9-]+\.)+servicenow\.com/
-      /{sld}(?:[a-zA-Z0-9-]+\.){2,}service-now\.com/
-      /{sld}(?:[a-zA-Z0-9-]+\.){2,}servicenow\.com/
-      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
-      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/ NOT confluence.atlassian.com
-      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
-      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
-      /gserviceaccount.com/ AND /BEGIN PRIVATE KEY/ NOT /@project.iam.gserviceaccount.com/ NOT /your-client-email-here/ NOT /your-service-account/ NOT /@yourproject/ NOT /@{YOUR-PROJECT-ID}/ NOT /@\[your-project\]/ NOT /@\<project/
-    </script>
-
     <div class="wrap">
       <header>
         <div
@@ -448,6 +384,17 @@
             placeholder="e.g.&#10;dev.example.com:8080/admin&#10;example.com/path/to/"
             style="height: 180px"
           ></textarea>
+
+          <label for="dork-pattern-input" class="small" style="margin-top: 14px">Custom Dork Pattern (optional):</label>
+          <textarea
+            id="dork-pattern-input"
+            placeholder="e.g. ${path}/${p} (${scheme}${host}${port} is added automatically)"
+            style="height: 80px"
+          ></textarea>
+          <div class="small" style="margin-top: 6px; color: var(--muted)">
+            Standard prefix <strong>${scheme}${host}${port}</strong> is added automatically. You only need to provide the suffix like <strong>${path}${p}</strong> or leave empty for default <strong>${path}${p}</strong>
+          </div>
+
           <div class="row">
             <div style="flex: 1; display: flex; gap: 8px; align-items: center">
               <input id="subdomain-file" type="file" multiple />
@@ -657,115 +604,77 @@
       </section>
     </div>
 
+    <script id="default-dorks" type="text/plain">
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/
+      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/  AND PATH:.env
+      /@(?:[a-zA-Z0-9_-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      org:{sld} /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /{sld}(?:[a-zA-Z0-9-]+\.)+service-now\.com/
+      /{sld}(?:[a-zA-Z0-9-]+\.)+servicenow\.com/
+      /{sld}(?:[a-zA-Z0-9-]+\.){2,}service-now\.com/
+      /{sld}(?:[a-zA-Z0-9-]+\.){2,}servicenow\.com/
+      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /github\.(?:[a-zA-Z0-9_-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{sld}\./
+      /servicenow\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /service-now\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /jdbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jdbc:[a-zA-Z0-9-]+:[a-zA-Z0-9-]+:\@(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jfrog\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /gitlab\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /github\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /confluence[a-zA-Z0-9-]*\.(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/ NOT confluence.atlassian.com
+      /:sap\:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /odbc:[a-zA-Z0-9-]+:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /mongodb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /redis:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /couchbase:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /rethinkdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /influxdb:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /crate:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /dgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /janusgraph:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /milvus:\/\/(?:[a-zA-Z0-9-]+\.){2,}{domain}/
+      /(?:[a-zA-Z0-9-]+\.){2,}auth0\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /(?:[a-zA-Z0-9-]+\.){2,}okta*\.[a-zA-Z0-9_-]*/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /(?:[a-zA-Z0-9-]+\.){2,}jfrog\.io/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /jenkins\.(?:[a-zA-Z0-9-]+\.){2,}/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /(?:[a-zA-Z0-9-]+\.){2,}jenkins\./ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /(?:[a-zA-Z0-9-]+\.){2,}onelogin\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /(?:[a-zA-Z0-9-]+\.){2,}looker\.com/ AND /[$#^]?{keywords}[[:space:]]*[:=]?[[:space:]]*['"][A-Za-z0-9_$#^\-@._]*['"]/
+      /gserviceaccount.com/ AND /BEGIN PRIVATE KEY/ NOT /@project.iam.gserviceaccount.com/ NOT /your-client-email-here/ NOT /your-service-account/ NOT /@yourproject/ NOT /@{YOUR-PROJECT-ID}/ NOT /@\[your-project\]/ NOT /@\<project/
+    </script>
+
     <script>
-      // ---------- Tabs ----------
-      const tabs = document.querySelectorAll(".tab-btn");
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          tabs.forEach((t) => t.classList.remove("active"));
-          tab.classList.add("active");
-          document
-            .querySelectorAll(".tab-content")
-            .forEach((c) => c.classList.add("hidden"));
-          document
-            .querySelector("#tab-" + tab.dataset.tab)
-            .classList.remove("hidden");
-        });
-      });
-
-      // ---------- JSON Generator ----------
-      const paramInput = document.getElementById("param-input"),
-        paramFile = document.getElementById("param-file"),
-        loadParam = document.getElementById("load-param"),
-        generateBtn = document.getElementById("generate-json"),
-        clearJson = document.getElementById("clear-json"),
-        jsonOutputArea = document.getElementById("json-output-area"),
-        jsonOutput = document.getElementById("json-output"),
-        toggleFormat = document.getElementById("toggle-format"),
-        copyJson = document.getElementById("copy-json"),
-        downloadJson = document.getElementById("download-json");
-
-      let pretty = true,
-        currentJSON = {};
-
-      function highlightJSON(t) {
-        return t.replace(
-          /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-          function (m) {
-            let c = "json-value";
-            if (/^"/.test(m)) {
-              c = /:$/.test(m) ? "json-key" : "json-string";
-            }
-            return '<span class="' + c + '">' + m + "</span>";
-          }
-        );
-      }
-
-      function renderJSON() {
-        const txt = pretty
-          ? JSON.stringify(currentJSON, null, 2)
-          : JSON.stringify(currentJSON);
-        jsonOutput.innerHTML = highlightJSON(txt);
-        jsonOutputArea.style.display = "block";
-        makeJSONDownload(txt);
-      }
-
-      function makeJSONDownload(t) {
-        const b = new Blob([t], { type: "application/json" });
-        const u = URL.createObjectURL(b);
-        downloadJson.href = u;
-        downloadJson.style.display = "inline-block";
-      }
-
-      generateBtn.addEventListener("click", () => {
-        const lines = paramInput.value
-          .split(/\r?\n/)
-          .map((x) => x.trim())
-          .filter(Boolean);
-        if (!lines.length) {
-          alert("Enter or load parameter names first.");
-          return;
-        }
-        const r = {};
-        lines.forEach((n) => (r[n] = n + "!(@#$%^&*)(?><"));
-        currentJSON = r;
-        renderJSON();
-      });
-
-      loadParam.addEventListener("click", () => {
-        if (!paramFile.files[0]) return alert("Select a .txt file first");
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          paramInput.value = e.target.result.trim();
-          generateBtn.click(); // auto-generate after load
-        };
-        reader.readAsText(paramFile.files[0]);
-      });
-
-      toggleFormat.addEventListener("click", () => {
-        pretty = !pretty;
-        toggleFormat.textContent = pretty ? "Pretty" : "Compact";
-        if (Object.keys(currentJSON).length) renderJSON();
-      });
-
-      copyJson.addEventListener("click", () => {
-        const tmp = document.createElement("textarea");
-        tmp.value = JSON.stringify(currentJSON, null, pretty ? 2 : 0);
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand("copy");
-        document.body.removeChild(tmp);
-        copyJson.textContent = "Copied!";
-        setTimeout(() => (copyJson.textContent = "Copy"), 1200);
-      });
-
-      clearJson.addEventListener("click", () => {
-        paramInput.value = "";
-        jsonOutput.innerHTML = "";
-        jsonOutputArea.style.display = "none";
-        downloadJson.style.display = "none";
-      });
-
       // ---------- Wordlist Generator ----------
       const subInput = document.getElementById("subdomain-input"),
         subFile = document.getElementById("subdomain-file"),
@@ -778,7 +687,8 @@
         downSub = document.getElementById("download-wordlist"),
         countSub = document.getElementById("wordlist-count"),
         ffufBtn = document.getElementById("copy-ffuf-loop"),
-        dirBtn = document.getElementById("copy-dirsearch-loop");
+        dirBtn = document.getElementById("copy-dirsearch-loop"),
+        dorkPatternInput = document.getElementById("dork-pattern-input");
 
       function makeDownloadLink(content, linkEl) {
         const blob = new Blob([content], { type: "text/plain" });
@@ -836,8 +746,21 @@
         return out;
       }
 
-      function generateVariants(input) {
+      function generateVariants(input, dorkPattern) {
         if (!input) return [];
+        
+        // Use provided pattern or set default
+        let pattern = dorkPattern.trim();
+        if (!pattern) {
+          pattern = "${scheme}${host}${port}${path}${p}";
+        } else {
+          // Prepend standard prefix if user didn't include it
+          const standardPrefix = "${scheme}${host}${port}";
+          if (!pattern.startsWith(standardPrefix)) {
+            pattern = standardPrefix + pattern;
+          }
+        }
+
         let url = input.trim();
         let scheme = "";
         if (url.match(/^https?:\/\//i)) {
@@ -863,250 +786,18 @@
         }
         const parts = host.split(".").filter(Boolean).slice(0, -1);
         const results = [];
-        results.push(`${scheme}${host}${port}${path}`);
+        
+        // Generate variants based on the dork pattern
         parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}${p}/`);
+          let variant = pattern
+            .replace(/\$\{scheme\}/g, scheme)
+            .replace(/\$\{host\}/g, host)
+            .replace(/\$\{port\}/g, port)
+            .replace(/\$\{path\}/g, path)
+            .replace(/\$\{p\}/g, p);
+          results.push(variant);
         });
 
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}http.${p}/`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Service/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Service/${p}Service.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Service/${p}Services.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Service/${p}WebService.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}Service/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}Service/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Services/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Services/${p}Service.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}Services/${p}Services.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}Services/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}Services/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}Services/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}WebService/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}WebService/${p}Service.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebService/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebService/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebService/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}WebServices/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebServices/${p}Service.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebServices/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebServices/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}WebService/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}${p}Service/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Service/${p}Service.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Service/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Service/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Service/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Service/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}${p}Services/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Services/${p}Service.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Services/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Services/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Services/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}Services/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}${p}WebService/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebService/${p}Service.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebService/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebService/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebService/${p}WebServices.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(`${scheme}${host}${port}${path}${p}WebServices/${p}.`);
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebServices/${p}Service.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebServices/${p}Services.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebServices/${p}WebService.`
-          );
-        });
-
-        parts.forEach((p) => {
-          results.push(
-            `${scheme}${host}${port}${path}${p}WebService/${p}WebServices.`
-          );
-        });
         return results;
       }
 
@@ -1128,12 +819,28 @@
           return alert("Enter or load valid subdomains/URLs first.");
         const uniqueInputs = Array.from(new Set(extracted));
         uniqueInputs.sort((a, b) =>
-          a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+          a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }),
         );
+        
+        // Get dork patterns (one per line)
+        const patternText = dorkPatternInput.value || "";
+        const patterns = patternText
+          .split(/\r?\n/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+        
+        // If no patterns provided, use empty string for default
+        if (!patterns.length) {
+          patterns.push("");
+        }
+        
         let display = [];
         for (const line of uniqueInputs) {
-          const variants = generateVariants(line);
-          display.push(...variants);
+          // For each URL, generate variants for each pattern
+          for (const pattern of patterns) {
+            const variants = generateVariants(line, pattern);
+            display.push(...variants);
+          }
         }
         display = Array.from(new Set(display));
         outPre.innerHTML = "";
@@ -1204,20 +911,21 @@
               a.localeCompare(b, undefined, {
                 numeric: true,
                 sensitivity: "base",
-              })
+              }),
             );
             subInput.value = unique.join("\n");
           })
           .catch((err) =>
             alert(
               "Failed to read files: " +
-                (err && err.message ? err.message : err)
-            )
+                (err && err.message ? err.message : err),
+            ),
           );
       });
 
       clearSub.addEventListener("click", () => {
         subInput.value = "";
+        dorkPatternInput.value = "";
         outPre.innerHTML = "";
         outArea.style.display = "none";
         downSub.style.display = "none";
@@ -1234,7 +942,7 @@
               copySub.textContent = "Copied!";
               setTimeout(() => (copySub.textContent = "Copy All"), 1200);
             },
-            () => alert("Copy failed")
+            () => alert("Copy failed"),
           );
         } else {
           const tmp = document.createElement("textarea");
@@ -1285,6 +993,118 @@
       });
 
       // ==========================================
+      // ========= END OF WORDLIST LOGIC ==========
+      // ==========================================
+
+      // ---------- Tabs ----------
+      const tabs = document.querySelectorAll(".tab-btn");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.add("hidden"));
+          document
+            .querySelector("#tab-" + tab.dataset.tab)
+            .classList.remove("hidden");
+        });
+      });
+
+      // ---------- JSON Generator ----------
+      const paramInput = document.getElementById("param-input"),
+        paramFile = document.getElementById("param-file"),
+        loadParam = document.getElementById("load-param"),
+        generateBtn = document.getElementById("generate-json"),
+        clearJson = document.getElementById("clear-json"),
+        jsonOutputArea = document.getElementById("json-output-area"),
+        jsonOutput = document.getElementById("json-output"),
+        toggleFormat = document.getElementById("toggle-format"),
+        copyJson = document.getElementById("copy-json"),
+        downloadJson = document.getElementById("download-json");
+
+      let pretty = true,
+        currentJSON = {};
+
+      function highlightJSON(t) {
+        return t.replace(
+          /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+          function (m) {
+            let c = "json-value";
+            if (/^"/.test(m)) {
+              c = /:$/.test(m) ? "json-key" : "json-string";
+            }
+            return '<span class="' + c + '">' + m + "</span>";
+          },
+        );
+      }
+
+      function renderJSON() {
+        const txt = pretty
+          ? JSON.stringify(currentJSON, null, 2)
+          : JSON.stringify(currentJSON);
+        jsonOutput.innerHTML = highlightJSON(txt);
+        jsonOutputArea.style.display = "block";
+        makeJSONDownload(txt);
+      }
+
+      function makeJSONDownload(t) {
+        const b = new Blob([t], { type: "application/json" });
+        const u = URL.createObjectURL(b);
+        downloadJson.href = u;
+        downloadJson.style.display = "inline-block";
+      }
+
+      generateBtn.addEventListener("click", () => {
+        const lines = paramInput.value
+          .split(/\r?\n/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+        if (!lines.length) {
+          alert("Enter or load parameter names first.");
+          return;
+        }
+        const r = {};
+        lines.forEach((n) => (r[n] = n + "!(@#$%^&*)(?><"));
+        currentJSON = r;
+        renderJSON();
+      });
+
+      loadParam.addEventListener("click", () => {
+        if (!paramFile.files[0]) return alert("Select a .txt file first");
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          paramInput.value = e.target.result.trim();
+          generateBtn.click();
+        };
+        reader.readAsText(paramFile.files[0]);
+      });
+
+      toggleFormat.addEventListener("click", () => {
+        pretty = !pretty;
+        toggleFormat.textContent = pretty ? "Pretty" : "Compact";
+        if (Object.keys(currentJSON).length) renderJSON();
+      });
+
+      copyJson.addEventListener("click", () => {
+        const tmp = document.createElement("textarea");
+        tmp.value = JSON.stringify(currentJSON, null, pretty ? 2 : 0);
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand("copy");
+        document.body.removeChild(tmp);
+        copyJson.textContent = "Copied!";
+        setTimeout(() => (copyJson.textContent = "Copy"), 1200);
+      });
+
+      clearJson.addEventListener("click", () => {
+        paramInput.value = "";
+        jsonOutput.innerHTML = "";
+        jsonOutputArea.style.display = "none";
+        downloadJson.style.display = "none";
+      });
+
+      // ==========================================
       // ============ OSINT DORKS LOGIC ===========
       // ==========================================
 
@@ -1293,7 +1113,6 @@
       const dorkKeywordsEl = document.getElementById("dork-keywords");
       const dorkPreviewEl = document.getElementById("dork-preview");
       const dorkResultsArea = document.getElementById("dork-resultsArea");
-      // file upload controls
       const dorkUrlsFile = document.getElementById("dork-urls-file");
       const loadDorkUrlsBtn = document.getElementById("load-dork-urls");
       const dorkUrlsFname = document.getElementById("dork-urls-fname");
@@ -1304,7 +1123,6 @@
       const loadDorkKeywordsBtn = document.getElementById("load-dork-keywords");
       const dorkKeywordsFname = document.getElementById("dork-keywords-fname");
 
-      // Get the default template from the hidden script tag
       const defaultDorksTemplate = document
         .getElementById("default-dorks")
         .textContent.trim();
@@ -1315,7 +1133,6 @@
         " NOT http: NOT https: NOT xxxx NOT **** NOT 123 NOT changeme NOT example NOT guest NOT localhost NOT fake NOT 1234 NOT xxx NOT 127.0.0.1 NOT test NOT tracker NOT RobotsDisallowed NOT disallowed NOT robots";
       const dorkFilterSelect = document.getElementById("dork-filter-select");
       const dorkApplyAll = document.getElementById("dork-apply-all");
-      // default keywords used when user did not provide/upload any
       const defaultKeywords = [
         "Password",
         "DB_PASSWORD",
@@ -1338,7 +1155,6 @@
         "AccessToken",
       ];
 
-      // Extract domain, SLD, subdomain from host
       function getDorkDomainInfo(line) {
         line = (line || "").trim();
         if (!line) return null;
@@ -1360,7 +1176,6 @@
         return { domain, SLD, subdomain };
       }
 
-      // Case-insensitive token replace
       function replaceDorkTokens(text, info) {
         return text
           .replace(/\{domain\}/gi, info.domain)
@@ -1368,7 +1183,6 @@
           .replace(/\{subdomain\}/gi, info.subdomain);
       }
 
-      // Build preview
       function buildDorkLivePreview() {
         const lines = dorkUrlsEl.value
           .trim()
@@ -1376,7 +1190,6 @@
           .map((x) => x.trim())
           .filter(Boolean);
 
-        // Deduplicate input domains before processing
         const seenDomains = new Set();
         const items = [];
 
@@ -1399,13 +1212,11 @@
           .split(/\r?\n/)
           .map((k) => k.trim())
           .filter(Boolean);
-        // fallback to default keyword set when user didn't provide any
         if (!keywords.length) keywords = defaultKeywords.slice();
         let blocks = [];
 
         for (const info of items) {
           if (custom) {
-            // User provided a custom dork
             const processed = replaceDorkTokens(custom, info);
             if (keywords.length) {
               for (const kw of keywords) {
@@ -1427,7 +1238,6 @@
               blocks.push(`# ${info.domain}\n${shown}`);
             }
           } else {
-            // User provided nothing, use the massive default list
             const processed = replaceDorkTokens(defaultDorksTemplate, info);
             if (keywords.length) {
               for (const kw of keywords) {
@@ -1469,7 +1279,6 @@
         dorkPreviewEl.value = blocks.join("\n\n");
       }
 
-      // auto-expand helper: grow textarea to fit content
       function autoExpand(el, min = 75) {
         if (!el) return;
         el.style.height = "auto";
@@ -1477,7 +1286,6 @@
         el.style.height = newH + "px";
       }
 
-      // expand on focus/click, collapse when clicking outside
       (function wireExpandableTextareas() {
         const ids = [
           "dork-urls",
@@ -1489,7 +1297,6 @@
 
         function expandEl(el) {
           if (!el) return;
-          // collapse previous
           if (expandedEl && expandedEl !== el) collapseEl(expandedEl);
           el.classList.add("expanded-textarea");
           autoExpand(el, 120);
@@ -1499,13 +1306,11 @@
         function collapseEl(el) {
           if (!el) return;
           el.classList.remove("expanded-textarea");
-          // reset inline height so CSS/placeholder sizes apply again
           el.style.height = "";
           el.style.minHeight = "";
           expandedEl = expandedEl === el ? null : expandedEl;
         }
 
-        // wire events
         ids.forEach((id) => {
           const el = document.getElementById(id);
           if (!el) return;
@@ -1514,23 +1319,19 @@
           el.addEventListener("input", () => autoExpand(el));
         });
 
-        // collapse when clicking anywhere outside the expanded textarea(s)
         document.addEventListener("click", (ev) => {
           const target = ev.target;
           if (!expandedEl) return;
-          // if the click is inside the expanded element, keep it open
           if (
             target === expandedEl ||
             (target.closest && target.closest(`#${expandedEl.id}`))
           ) {
             return;
           }
-          // allow clicks on file-upload buttons related to the textarea to be considered "outside"
-          // so collapsing behavior is consistent with user's request
           collapseEl(expandedEl);
         });
       })();
-      // modern file loaders: open file dialog then read txt into the corresponding textarea
+
       function wireFileLoader(button, fileInput, targetTextarea, fnameEl) {
         if (!button || !fileInput || !targetTextarea) return;
         button.addEventListener("click", () => fileInput.click());
@@ -1541,9 +1342,7 @@
           const reader = new FileReader();
           reader.onload = (e) => {
             targetTextarea.value = e.target.result || "";
-            // trigger preview update
             buildDorkLivePreview();
-            // expand to show content
             autoExpand(targetTextarea);
           };
           reader.readAsText(f);
@@ -1555,32 +1354,31 @@
         loadDorkCustomBtn,
         dorkCustomFile,
         dorkCustomEl,
-        dorkCustomFname
+        dorkCustomFname,
       );
       wireFileLoader(
         loadDorkKeywordsBtn,
         dorkKeywordsFile,
         dorkKeywordsEl,
-        dorkKeywordsFname
+        dorkKeywordsFname,
       );
 
-      // ensure live preview updates in real-time for any user input/upload
       if (dorkUrlsEl) {
         dorkUrlsEl.addEventListener("input", buildDorkLivePreview);
         dorkUrlsEl.addEventListener("paste", () =>
-          setTimeout(buildDorkLivePreview, 50)
+          setTimeout(buildDorkLivePreview, 50),
         );
       }
       if (dorkCustomEl) {
         dorkCustomEl.addEventListener("input", buildDorkLivePreview);
         dorkCustomEl.addEventListener("paste", () =>
-          setTimeout(buildDorkLivePreview, 50)
+          setTimeout(buildDorkLivePreview, 50),
         );
       }
       if (dorkKeywordsEl) {
         dorkKeywordsEl.addEventListener("input", buildDorkLivePreview);
         dorkKeywordsEl.addEventListener("paste", () =>
-          setTimeout(buildDorkLivePreview, 50)
+          setTimeout(buildDorkLivePreview, 50),
         );
       }
       if (dorkFilterSelect)
@@ -1588,32 +1386,27 @@
       if (dorkApplyAll)
         dorkApplyAll.addEventListener("change", buildDorkLivePreview);
 
-      // Run preview once on load in case there is data
       buildDorkLivePreview();
 
-      // ---------- Final Dork Generation ----------
       document.getElementById("dork-generate").addEventListener("click", () => {
         const finalText = dorkPreviewEl.value.trim();
         if (!finalText) return;
 
-        // Split preview into blocks separated by 2+ newlines (each block represents a domain/keyword group)
         const rawBlocks = finalText
           .split(/\n{2,}/)
           .map((b) => b.trim())
           .filter(Boolean);
 
-        // Extract individual dork lines (strip header comment lines that start with '#')
         const cleanedLines = [];
         rawBlocks.forEach((b) => {
           b.split(/\n/).forEach((line) => {
             const t = line.trim();
             if (!t) return;
-            if (t.startsWith("#")) return; // skip header/comment lines
+            if (t.startsWith("#")) return;
             cleanedLines.push(t);
           });
         });
 
-        // clear output
         dorkResultsArea.innerHTML = "";
 
         const seenDorks = new Set();
@@ -1626,7 +1419,6 @@
 
         cleanedLines.forEach((line) => {
           let block = line;
-          // determine extra filter (from token in block or global selection)
           let extra = "";
           if (block.includes("{filter_http}")) extra = dorkFilterHttp;
           else if (block.includes("{filter}")) extra = dorkFilter;
@@ -1643,10 +1435,9 @@
           seenDorks.add(finalDork);
           validLinksCount++;
 
-          // encode entire query (dork + extra) so spaces and operators are preserved
           const fullQuery = finalDork + (extra ? " " + extra.trim() : "");
           const url = `https://github.com/search?q=${encodeURIComponent(
-            fullQuery
+            fullQuery,
           )}&type=code`;
 
           const linkEl = document.createElement("div");
@@ -1666,13 +1457,10 @@
         dorkResultsArea.appendChild(introDiv);
         dorkResultsArea.appendChild(linksDiv);
 
-        // scroll to first generated item smoothly
         const firstLink = linksDiv.querySelector(".dork-entry");
         if (firstLink) {
-          // scroll the results area container to the first link
           firstLink.scrollIntoView({ behavior: "smooth", block: "start" });
         } else {
-          // fallback: scroll results area into view
           dorkResultsArea.scrollIntoView({
             behavior: "smooth",
             block: "start",
@@ -1680,7 +1468,6 @@
         }
       });
 
-      // mark a dork link as clicked (delegated)
       dorkResultsArea.addEventListener("click", (ev) => {
         const a = ev.target.closest && ev.target.closest("a.result-link");
         if (!a) return;
@@ -1691,7 +1478,7 @@
         .getElementById("dork-copy")
         .addEventListener("click", async () => {
           const links = Array.from(
-            document.querySelectorAll("#dork-links a.result-link")
+            document.querySelectorAll("#dork-links a.result-link"),
           )
             .map((a) => a.href)
             .join("\n");
