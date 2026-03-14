@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -317,6 +318,7 @@
       </header>
       <div class="tabs">
         <button class="tab-btn active" data-tab="json">JSON Generator</button>
+        <button class="tab-btn" data-tab="waf">WAF Encoder</button>
         <button class="tab-btn" data-tab="wordlist">
           Wordlist Fuzzing Generator
         </button>
@@ -324,6 +326,48 @@
       </div>
 
       <!-- Removed Expander section -->
+      <section id="tab-waf" class="tab-content hidden">
+        <div class="card">
+          <label class="small">Endpoints / Wordlist (one per line)</label>
+          <textarea
+            id="waf-input"
+            placeholder="actuator/health&#10;actuator/env"
+          ></textarea>
+
+          <div class="row">
+            <button id="generate-waf">Generate</button>
+            <button id="clear-waf" class="secondary">Clear</button>
+          </div>
+
+          <div class="out" id="waf-output-area" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <strong>Result</strong>
+                <span id="waf-count" class="badge">0</span>
+              </div>
+
+              <div style="display: flex; gap: 8px">
+                <button id="copy-waf" class="secondary">Copy</button>
+                <a
+                  id="download-waf"
+                  style="display: none"
+                  download="waf-bypass.txt"
+                >
+                  <button>Download</button>
+                </a>
+              </div>
+            </div>
+
+            <pre id="waf-output" style="margin-top: 12px"></pre>
+          </div>
+        </div>
+      </section>
 
       <section id="tab-json" class="tab-content">
         <div class="card">
@@ -385,14 +429,19 @@
             style="height: 180px"
           ></textarea>
 
-          <label for="dork-pattern-input" class="small" style="margin-top: 14px">Custom Dork Pattern (optional):</label>
+          <label for="dork-pattern-input" class="small" style="margin-top: 14px"
+            >Custom Dork Pattern (optional):</label
+          >
           <textarea
             id="dork-pattern-input"
             placeholder="e.g. ${path}/${p} (${scheme}${host}${port} is added automatically)"
             style="height: 80px"
           ></textarea>
           <div class="small" style="margin-top: 6px; color: var(--muted)">
-            Standard prefix <strong>${scheme}${host}${port}</strong> is added automatically. You only need to provide the suffix like <strong>${path}${p}</strong> or leave empty for default <strong>${path}${p}</strong>
+            Standard prefix <strong>${scheme}${host}${port}</strong> is added
+            automatically. You only need to provide the suffix like
+            <strong>${path}${p}</strong> or leave empty for default
+            <strong>${path}${p}</strong>
           </div>
 
           <div class="row">
@@ -675,6 +724,118 @@
     </script>
 
     <script>
+      // =============================
+      // WAF BYPASS ENCODER
+      // =============================
+
+      const wafInput = document.getElementById("waf-input");
+      const wafGenerate = document.getElementById("generate-waf");
+      const wafClear = document.getElementById("clear-waf");
+      const wafOutput = document.getElementById("waf-output");
+      const wafArea = document.getElementById("waf-output-area");
+      const wafCopy = document.getElementById("copy-waf");
+      const wafDownload = document.getElementById("download-waf");
+      const wafCount = document.getElementById("waf-count");
+
+      function encodeChar(c) {
+        return "%" + c.charCodeAt(0).toString(16);
+      }
+
+      function doubleEncode(c) {
+        return "%25" + c.charCodeAt(0).toString(16);
+      }
+
+      function generateWafVariants(path) {
+        const results = new Set();
+
+        let parts = path.split("/");
+        let base = parts[0];
+        let rest = parts.slice(1).join("/");
+
+        if (rest) rest = "/" + rest;
+
+        // single encoding
+        for (let i = 0; i < base.length; i++) {
+          let encoded =
+            base.slice(0, i) + encodeChar(base[i]) + base.slice(i + 1);
+          results.add(encoded + rest);
+        }
+
+        // double encoding
+        for (let i = 0; i < base.length; i++) {
+          let encoded =
+            base.slice(0, i) + doubleEncode(base[i]) + base.slice(i + 1);
+          results.add(encoded + rest);
+        }
+
+        // mixed encoding
+        for (let i = 0; i < base.length; i++) {
+          for (let j = i + 1; j < base.length; j++) {
+            let arr = base.split("");
+            arr[i] = encodeChar(arr[i]);
+            arr[j] = encodeChar(arr[j]);
+            results.add(arr.join("") + rest);
+          }
+        }
+
+        // full encode
+        let full = base
+          .split("")
+          .map((c) => encodeChar(c))
+          .join("");
+        results.add(full + rest);
+
+        return Array.from(results);
+      }
+
+      wafGenerate.addEventListener("click", () => {
+        const lines = wafInput.value
+          .split(/\r?\n/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+
+        if (!lines.length) {
+          alert("Enter endpoints first");
+          return;
+        }
+
+        let all = [];
+
+        lines.forEach((line) => {
+          all.push("# bypasses for " + line);
+          const vars = generateWafVariants(line);
+          all.push(...vars);
+          all.push("");
+        });
+
+        const final = all.join("\n");
+
+        wafOutput.textContent = final;
+        wafArea.style.display = "block";
+        wafCount.textContent = final.split("\n").length;
+
+        const blob = new Blob([final], { type: "text/plain" });
+        wafDownload.href = URL.createObjectURL(blob);
+        wafDownload.style.display = "inline-block";
+      });
+
+      wafCopy.addEventListener("click", async () => {
+        const text = wafOutput.textContent;
+        if (!text) return;
+
+        await navigator.clipboard.writeText(text);
+
+        wafCopy.textContent = "Copied!";
+        setTimeout(() => (wafCopy.textContent = "Copy"), 1200);
+      });
+
+      wafClear.addEventListener("click", () => {
+        wafInput.value = "";
+        wafOutput.textContent = "";
+        wafArea.style.display = "none";
+        wafDownload.style.display = "none";
+        wafCount.textContent = "0";
+      });
       // ---------- Wordlist Generator ----------
       const subInput = document.getElementById("subdomain-input"),
         subFile = document.getElementById("subdomain-file"),
@@ -748,7 +909,7 @@
 
       function generateVariants(input, dorkPattern) {
         if (!input) return [];
-        
+
         // Use provided pattern or set default
         let pattern = dorkPattern.trim();
         if (!pattern) {
@@ -786,7 +947,7 @@
         }
         const parts = host.split(".").filter(Boolean).slice(0, -1);
         const results = [];
-        
+
         // Generate variants based on the dork pattern
         parts.forEach((p) => {
           let variant = pattern
@@ -821,19 +982,19 @@
         uniqueInputs.sort((a, b) =>
           a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }),
         );
-        
+
         // Get dork patterns (one per line)
         const patternText = dorkPatternInput.value || "";
         const patterns = patternText
           .split(/\r?\n/)
           .map((p) => p.trim())
           .filter(Boolean);
-        
+
         // If no patterns provided, use empty string for default
         if (!patterns.length) {
           patterns.push("");
         }
-        
+
         let display = [];
         for (const line of uniqueInputs) {
           // For each URL, generate variants for each pattern
